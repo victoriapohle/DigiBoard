@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,7 +24,40 @@ namespace DigiboardDisplay
     {
         public MainWindow()
         {
+            DataContext = this;
             InitializeComponent();
+            TodaysDate = DateTime.Now;
         }
+        private DateTime _todaysDate;
+
+        public DateTime TodaysDate
+        {
+            get { return _todaysDate; }
+            set { _todaysDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        //Create OnPropertyChanged method to raise event
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (PropertyChanged != null)
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
+
+
 }
