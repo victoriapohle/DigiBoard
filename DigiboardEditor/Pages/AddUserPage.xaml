@@ -25,7 +25,7 @@
                 </telerik:RadWatermarkTextBox.Background>
             </telerik:RadWatermarkTextBox>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Setup Password:</TextBlock>
-            <telerik:RadPasswordBox Name="tbPassword" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserPassword}">
+            <telerik:RadPasswordBox Name="tbPassword" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" PasswordChanged="TbPassword_PasswordChanged">
                 <telerik:RadPasswordBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadPasswordBox.Background>

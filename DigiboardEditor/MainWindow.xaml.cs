@@ -177,6 +177,7 @@ namespace DigiboardEditor
         //TODO: Fix selection bug by unselecting everything else when button is clicked
         private void RadListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            if((sender as RadListBox).SelectedItem == null) return;
             String selection = (string)((sender as RadListBox).SelectedValue as RadListBoxItem).Content;
             
 
@@ -228,8 +229,13 @@ namespace DigiboardEditor
             btnAdminSettingsMax.IsOpen = false;
             btnAdminSettingsMin.IsOpen = false;
 
+            var box = sender as RadListBox;
+            box.SelectedItem = null;
         }
 
-
+        private void RadListBox_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+           
+        }
     }
 }

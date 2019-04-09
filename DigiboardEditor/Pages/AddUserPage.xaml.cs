@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace DigiboardEditor.Pages
 {
@@ -119,25 +120,37 @@ namespace DigiboardEditor.Pages
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
+            AddNewUser();
+            InitializePage();
+            ManageUsergroupsPage ManageUsergroups = new ManageUsergroupsPage();
 
+
+        }
+
+        public void AddNewUser()
+        {
             User newUser = new User();
             newUser.userName = UserName;
             newUser.email = UserEmail;
             newUser.isDeleted = false;
             newUser.roleID = SelectedUserRole.roleID;
-            newUser.password = tbPassword.Password;
-             UserRepository.Instance.Add(newUser);
-            InitializePage();
-            ManageAnnouncementsPage manageAnnouncementsPage = new ManageAnnouncementsPage();
-       
+            newUser.password = UserPassword;
+            UserRepository.Instance.Add(newUser);
         }
-        private void InitializePage()
+
+        public void InitializePage()
         {
             tbName.Text = null;
             tbEmail.Text = null;
             tbPassword.Clear();
             tbPasswordConfirm.Clear();
             cbUserRole.SelectedItem = null;
+        }
+
+        private void TbPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            var pb = sender as RadPasswordBox;
+            UserPassword = pb.Password;
         }
     }
 }

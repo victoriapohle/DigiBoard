@@ -216,7 +216,9 @@
                                    Style="{DynamicResource RadDropDownButtonStyle1}"
                                    Width="50" Height="40" IsEnabled="False"  Margin="-12,-10,-10,0">
                                 <telerik:RadDropDownButton.DropDownContent>
-                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" 
+                                                        MouseLeave="RadListBox_MouseLeave"
+                                                        SelectionChanged="RadListBox_SelectionChanged">
                                         <telerik:RadListBoxItem Content="Start Timer" />
                                         <telerik:RadListBoxItem Content="Manage Timer" />
                                     </telerik:RadListBox>
@@ -234,7 +236,9 @@
                                    Style="{DynamicResource RadDropDownButtonStyle1}"
                                    Width="192" Height="40" Margin="0,-10,-10,0">
                                 <telerik:RadDropDownButton.DropDownContent>
-                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" 
+                                                        MouseLeave="RadListBox_MouseLeave"
+                                                        SelectionChanged="RadListBox_SelectionChanged">
                                         <telerik:RadListBoxItem Content="Start Timer" />
                                         <telerik:RadListBoxItem Content="Manage Timer" />
                                     </telerik:RadListBox>
@@ -254,7 +258,9 @@
                                    Style="{DynamicResource RadDropDownButtonStyle1}"
                                    Width="50" Height="40" IsEnabled="False"  Margin="-12,-10,-10,0">
                                 <telerik:RadDropDownButton.DropDownContent>
-                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material"
+                                                        SelectionChanged="RadListBox_SelectionChanged"
+                                                        MouseLeave="RadListBox_MouseLeave" >
                                         <telerik:RadListBoxItem Content="Add User" />
                                         <telerik:RadListBoxItem Content="Manage Usergroups" />
                                     </telerik:RadListBox>
@@ -273,7 +279,9 @@
                                    Style="{DynamicResource RadDropDownButtonStyle1}"
                                    Width="192" Height="40" Margin="0,-10,-10,0">
                                 <telerik:RadDropDownButton.DropDownContent>
-                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material"
+                                                        MouseLeave="RadListBox_MouseLeave"
+                                                        SelectionChanged="RadListBox_SelectionChanged">
                                         <telerik:RadListBoxItem Content="Add User" />
                                         <telerik:RadListBoxItem Content="Manage Usergroups" />
                                     </telerik:RadListBox>
@@ -290,7 +298,8 @@
 
             </telerik:RadNavigationView.Content>
             <telerik:RadNavigationView.PaneFooter >
-                <telerik:RadNavigationViewItem telerik:StyleManager.Theme="Material" Name="btnUsername" Content="Username" Click="BtnUsername_Click">
+                <telerik:RadNavigationViewItem telerik:StyleManager.Theme="Material" Name="btnUsername" 
+                                               Content="Username" Click="BtnUsername_Click">
                     <telerik:RadNavigationViewItem.Icon>
                         <telerik:RadGlyph Glyph="&#xe801;" FontSize="16"/>
                     </telerik:RadNavigationViewItem.Icon>

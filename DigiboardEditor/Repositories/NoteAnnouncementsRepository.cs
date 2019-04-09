@@ -7,21 +7,48 @@ using System.Threading.Tasks;
 
 namespace DigiboardEditor
 {
-    public class NoteAnnouncementsRepository
+    public interface INoteAnnouncementsRepository
     {
-        private DigiboardEntities DB = new DigiboardEntities();
+        ObservableCollection<AnnouncementsNote> GetAll();
 
-        private static NoteAnnouncementsRepository _instance;
+        void DeleteUser(int ID);
 
-        public static NoteAnnouncementsRepository Instance
+        void Add(AnnouncementsNote note);
+    }
+
+    public class NoteAnnouncementsRepository 
+    {
+
+        private static INoteAnnouncementsRepository _instance;
+
+        public static INoteAnnouncementsRepository Instance
         {
-            get { return _instance ?? (_instance = new NoteAnnouncementsRepository()); }
+            get { return _instance ?? (_instance = new NoteAnnouncementsDataService()); }
         }
+
+    }
+
+    public class MyOtherImplementation : INoteAnnouncementsRepository
+    {
+        public void Add(AnnouncementsNote note)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUser(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
         public ObservableCollection<AnnouncementsNote> GetAll()
         {
-            ObservableCollection<AnnouncementsNote> notes = new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.isDeleted == false));
-            return notes;
+            return null;
         }
+    }
+
+    public class NoteAnnouncementsDataService : INoteAnnouncementsRepository
+    {
+        public DigiboardEntities DB = new DigiboardEntities();
 
         public void DeleteUser(int ID)
         {
@@ -34,6 +61,12 @@ namespace DigiboardEditor
         {
             DB.AnnouncementsNotes.Add(note);
             DB.SaveChanges();
+        }
+
+        public ObservableCollection<AnnouncementsNote> GetAll()
+        {
+            ObservableCollection<AnnouncementsNote> notes = new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.isDeleted == false));
+            return notes;
         }
     }
 }
