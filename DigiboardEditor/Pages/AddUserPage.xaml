@@ -1,0 +1,55 @@
+﻿<Page x:Class="DigiboardEditor.Pages.AddUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      xmlns:local="clr-namespace:DigiboardEditor.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddUserPage" telerik:StyleManager.Theme="Material">
+
+
+    <Grid Background="#FF22328C">
+        <StackPanel Orientation="Vertical" Width="400" VerticalAlignment="Center" >
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> User Name: </TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserName}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadWatermarkTextBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> User Email: </TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbEmail" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserEmail}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadWatermarkTextBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Setup Password:</TextBlock>
+            <telerik:RadPasswordBox Name="tbPassword" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserPassword}">
+                <telerik:RadPasswordBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadPasswordBox.Background>
+            </telerik:RadPasswordBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Confirm Password:</TextBlock>
+            <telerik:RadPasswordBox Name="tbPasswordConfirm" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserPassword}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadPasswordBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> User Role :</TextBlock>
+            <telerik:RadComboBox Name="cbUserRole" telerik:StyleManager.Theme="Material"  Margin="0,0,0,10" ItemsSource="{Binding UserRoleCollection}" DisplayMemberPath="roleName" SelectedItem="{Binding SelectedUserRole}" SelectedValuePath="roleID">
+                <telerik:RadComboBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadComboBox.Background>
+            </telerik:RadComboBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                <telerik:RadButton Name="btnAddUser" Width="100" Margin="0,0,5,0" Click="BtnAddUser_Click"
+                                   telerik:StyleManager.Theme="Material">Add</telerik:RadButton>
+                <telerik:RadButton Name="btnCancelUser" Width="100" Click="BtnCancelUser_Click"
+                                   telerik:StyleManager.Theme="Material">Cancel</telerik:RadButton>
+
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

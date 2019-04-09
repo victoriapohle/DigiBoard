@@ -1,9 +1,12 @@
-﻿<Application x:Class="DigiboardEditor.App"
+﻿<Application
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DigiboardEditor"
-             StartupUri="MainWindow.xaml">
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" xmlns:MaterialControls="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" x:Class="DigiboardEditor.App"
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
-         
+
+       
+
     </Application.Resources>
 </Application>

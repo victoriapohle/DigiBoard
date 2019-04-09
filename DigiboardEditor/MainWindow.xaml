@@ -3,11 +3,304 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DigiboardEditor"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+          xmlns:MaterialControls="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls" xmlns:telerik1="http://schemas.telerik.com/2008/xaml/presentation" 
+        xmlns:local="clr-namespace:DigiboardEditor" Title="Digiboard Editor"
+        mc:Ignorable="d"  WindowState="Maximized" >
+    <Window.Resources>
+        <Style x:Key="RadDropDownButtonStyle1" TargetType="{x:Type telerik:RadDropDownButton}">
+            <Setter Property="MaterialControls:MaterialAssist.MouseOverBrush" Value="Transparent"/>
+            <Setter Property="MaterialControls:MaterialAssist.PressedBrush" Value="Transparent"/>
+            <Setter Property="MaterialControls:MaterialAssist.FocusBrush" Value="Transparent"/>
+            <Setter Property="MaterialControls:MaterialAssist.CheckedBrush" Value="Transparent"/>
+            <Setter Property="DropDownMinHeight" Value="3"/>
+            <Setter Property="DropDownMinWidth" Value="3"/>
+            <Setter Property="MaterialControls:MaterialAssist.ShadowDepth" Value="Depth1"/>
+            <Setter Property="IsBackgroundVisible" Value="False"/>
+            <Setter Property="FontFamily" Value="{telerik:MaterialResource ResourceKey={x:Static telerik:MaterialResourceKey.FontFamily}}"/>
+            <Setter Property="FontSize" Value="{telerik:MaterialResource ResourceKey={x:Static telerik:MaterialResourceKey.FontSize}}"/>
+            <Setter Property="Foreground" Value="{telerik:MaterialResource ResourceKey={x:Static telerik:MaterialResourceKey.MarkerBrush}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+            <Setter Property="UseLayoutRounding" Value="True"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="CornerRadius" Value="{telerik:MaterialResource ResourceKey={x:Static telerik:MaterialResourceKey.CornerRadius}}"/>
+            <Setter Property="IsOpen" Value="False"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type telerik:RadDropDownButton}">
+                        <Grid SnapsToDevicePixels="True">
+                            <MaterialControls:Shadow Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" ShadowDepth="{TemplateBinding MaterialControls:MaterialAssist.ShadowDepth}"/>
+                            <!--<Border x:Name="BorderVisual" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" SnapsToDevicePixels="True"/>
+                            <Border x:Name="Line" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0,0,1" SnapsToDevicePixels="True" Visibility="Collapsed"/>
+                            <Border x:Name="CheckVisual" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding MaterialControls:MaterialAssist.CheckedBrush}" CornerRadius="{TemplateBinding CornerRadius}" Opacity="0" SnapsToDevicePixels="True" Width="47" HorizontalAlignment="Left"/>
+                            <Border x:Name="FocusVisual" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding MaterialControls:MaterialAssist.FocusBrush}" CornerRadius="{TemplateBinding CornerRadius}" Opacity="0" SnapsToDevicePixels="True"/>-->
+                            <MaterialControls:MaterialControl CornerRadius="{TemplateBinding CornerRadius}" HorizontalContentAlignment="Stretch" IsSmartClipped="True" VerticalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" TextElement.Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type telerik:RadDropDownButton}}}" Margin="{TemplateBinding Padding}" Grid.Row="1" RecognizesAccessKey="True" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type telerik:RadDropDownButton}}}"/>
 
-        
+                                </Grid>
+                            </MaterialControls:MaterialControl>
+                            <Popup x:Name="DropDownPopup" AllowsTransparency="True" Focusable="False" HorizontalOffset="0" PopupAnimation="{TemplateBinding PopupAnimation}" Placement="Bottom" StaysOpen="False" VerticalOffset="0">
+                                <Grid x:Name="PopupGrid" >
+                                    <MaterialControls:Shadow x:Name="PopupShadow" BorderBrush="{TemplateBinding BorderBrush}" Background="{DynamicResource {x:Static telerik:MaterialResourceKey.MainBrush}}" CornerRadius="{DynamicResource {x:Static telerik:MaterialResourceKey.CornerRadiusBottom}}" MaterialControls:MaterialAssist.IsShadowDisabled="False" ShadowDepth="Depth2" SnapsToDevicePixels="True">
+                                        <MaterialControls:Shadow.Effect>
+                                            <DropShadowEffect BlurRadius="8" Color="#AA000000" Direction="-90" Opacity="0.25" RenderingBias="Performance" ShadowDepth="2"/>
+                                        </MaterialControls:Shadow.Effect>
+                                    </MaterialControls:Shadow>
+                                    <Border x:Name="DropDownPopupBorder" BorderBrush="{DynamicResource {x:Static telerik:MaterialResourceKey.DividerBrush}}" BorderThickness="0,1,0,0" Background="{DynamicResource {x:Static telerik:MaterialResourceKey.MainBrush}}" CornerRadius="{DynamicResource {x:Static telerik:MaterialResourceKey.CornerRadiusBottom}}" Height="{TemplateBinding DropDownHeight}" MaxWidth="{TemplateBinding DropDownMaxWidth}" MaxHeight="{TemplateBinding DropDownMaxHeight}" MinWidth="{TemplateBinding DropDownMinWidth}" MinHeight="{TemplateBinding DropDownMinHeight}" Width="{TemplateBinding DropDownWidth}">
+                                        <ContentControl x:Name="DropDownPopupContent" ContentTemplate="{TemplateBinding DropDownContentTemplate}" Content="{TemplateBinding DropDownContent}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--<telerik:InvertedBooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"/>-->
+        <telerik1:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="457*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+
+
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="331*"/>
+
+
+        </Grid.ColumnDefinitions>
+        <Border Height="50" VerticalAlignment="Top"  Grid.Row="0" Grid.ColumnSpan="2">
+            <Border.Background>
+                <SolidColorBrush Color="#FF686868" Opacity="0.6"/>
+            </Border.Background>
+        </Border>
+        <Border Width="100" HorizontalAlignment="Left" Grid.RowSpan="1" Grid.Column="0">
+            <Border.Background>
+                <SolidColorBrush Color="#FF3E3E42" Opacity="0.8"/>
+            </Border.Background>
+        </Border>
+        <telerik:RadNavigationView x:Name="navigationView" Grid.ColumnSpan="2" Grid.Row="2" 
+                                   
+                                   telerik:StyleManager.Theme="Material" >
+            <telerik:RadNavigationView.PaneHeader>
+                <Viewbox Stretch="Uniform" Margin="5">
+                    <Canvas Name="svg3760" Width="170" Height="32">
+                        <Canvas.RenderTransform>
+                            <TranslateTransform X="0" Y="0"/>
+                        </Canvas.RenderTransform>
+                        <Canvas.Resources/>
+                        <!--Unknown tag: sodipodi:namedview-->
+                        <!--Unknown tag: metadata-->
+                        <Canvas Name="layer1">
+                            <Canvas.RenderTransform>
+                                <TranslateTransform X="-27.86457" Y="-97.055726"/>
+                            </Canvas.RenderTransform>
+                            <Path Name="path3737" Fill="White" StrokeThickness="0.21166667">
+                                <Path.Data>
+                                    <PathGeometry Figures="m 66.123463 128.91655 c -1.646579 -0.46327 -2.747468 -1.08991 -4.006279 -2.28044 -0.918109 -0.86831 -1.126781 -1.19495 -1.126781 -1.76379 0 -0.48148 0.145992 -0.80038 0.470432 -1.02763 0.797833 -0.55883 1.387933 -0.39705 2.558489 0.70143 1.554623 1.45888 2.284291 1.77905 4.305694 1.88924 2.253449 0.12285 3.351075 -0.27847 4.619136 -1.68886 1.083321 -1.20491 1.523301 -2.39936 1.720535 -4.6709 0.14986 -1.72587 -0.03341 -2.07829 -0.564607 -1.08573 -0.481095 0.89893 -2.060091 2.15051 -3.296902 2.61326 -1.536872 0.57502 -3.469756 0.56252 -5.310415 -0.0343 -1.204497 -0.39058 -1.655829 -0.68612 -2.828385 -1.85209 -1.752547 -1.74269 -2.310977 -3.06939 -2.467483 -5.86216 -0.186862 -3.33444 0.965914 -5.96828 3.400621 -7.76967 2.424387 -1.79375 6.278824 -2.14317 9.09648 -0.82463 2.642135 1.2364 4.382434 3.59669 4.7981 6.50745 0.272206 1.90615 0.273328 8.03055 0.0019 9.94833 -0.432612 3.05579 -2.523117 5.81442 -5.198753 6.86026 -1.609227 0.62901 -4.56601 0.79203 -6.17171 0.34027 z m 5.132774 -10.13553 c 2.17879 -1.02256 3.327871 -2.92447 3.327871 -5.50815 0 -2.02705 -0.594096 -3.41908 -1.997851 -4.68118 -1.188153 -1.06825 -2.046329 -1.37197 -3.881379 -1.37366 -3.885943 -0.004 -6.504146 3.96946 -5.313915 8.06371 0.949589 3.26647 4.754438 4.95926 7.865274 3.49928 z M 35.876777 104.4016 c 1.925834 0 2.264618 0.22862 3.325006 0.76633 0.647467 0.3283 1.53383 0.92361 1.969696 1.32291 0.435866 0.39931 0.834807 0.72601 0.886537 0.72601 0.05173 0 0.09405 -2.07889 0.09405 -4.61977 0 -4.555312 0.0068 -4.626192 0.489892 -5.080002 0.6932 -0.65122 1.691555 -0.6079 2.246412 0.0975 0.431389 0.54842 0.4387 0.7462 0.4387 11.867252 0 11.29285 -0.03724 11.93409 -0.719603 12.38972 -0.128094 0.0855 -2.376022 0.15033 -4.995397 0.14401 -3.622313 -0.009 -5.012085 -0.0881 -5.805001 -0.33148 v -2e-5 c -2.326938 -0.71421 -4.165261 -2.35594 -5.285774 -4.72051 -0.604835 -1.27636 -0.656725 -1.56147 -0.656725 -3.60836 0 -1.81666 0.09035 -2.46054 0.49481 -3.52604 0.749179 -1.97365 2.188695 -3.62532 3.937064 -4.5173 1.375856 -0.70193 1.5546 -0.91025 3.580333 -0.91025 m 2.653721 14.57095 c 1.414436 -0.49904 2.290557 -1.31397 3.032175 -2.82042 2.053589 -4.17143 -0.616788 -8.93528 -5.008676 -8.93528 -3.045407 0 -5.444152 2.23065 -5.767471 5.3633 -0.284767 2.75914 1.337932 5.55838 3.714261 6.40729 1.038669 0.37106 2.955912 0.36397 4.029711 -0.0149 z m 13.887405 2.81316 c -0.232833 -0.13485 -0.493313 -0.34857 -0.578842 -0.47493 -0.205867 -0.30416 -0.201726 -15.82041 0.0043 -16.14444 0.506989 -0.79733 2.121572 -0.7211 2.572499 0.12147 0.146327 0.27341 0.224536 3.07034 0.224536 8.03001 0 6.94019 -0.03262 7.64902 -0.370417 8.04822 -0.465593 0.55024 -1.300126 0.73934 -1.852083 0.41967 z m 31.48234 0.033 c -0.263631 -0.10842 -0.573193 -0.44401 -0.687917 -0.74576 -0.267409 -0.70333 -0.278363 -14.91499 -0.01204 -15.61548 0.227068 -0.59724 1.154178 -0.97792 1.918422 -0.78773 1.027414 0.25568 1.066035 0.59424 1.008084 8.83689 -0.05834 8.29798 -0.03699 8.15077 -1.218057 8.3983 -0.291042 0.061 -0.744866 0.0222 -1.008497 -0.0862 z m 8.990618 -0.15919 c -0.332584 -0.36749 -0.362124 -1.36045 -0.362124 -12.17188 V 97.715888 l 0.470431 -0.3295 c 0.648264 -0.45407 1.563154 -0.41259 2.069569 0.0938 0.397676 0.39767 0.423333 0.70555 0.423333 5.080002 0 2.56116 0.05989 4.65666 0.133096 4.65666 0.0732 0 0.514207 -0.34431 0.980014 -0.76513 1.281623 -1.15788 2.868208 -1.79806 4.7722 -1.92557 2.54163 -0.17021 3.98334 0.35035 5.93819 2.14412 2.79061 2.56068 3.46265 7.7486 1.44833 11.18072 -0.79891 1.36122 -2.21431 2.64782 -3.74138 3.40089 l -1.37039 0.67581 -5.199571 0.066 c -4.877176 0.0619 -5.222031 0.0412 -5.561698 -0.33417 z m 10.538709 -2.77289 c 1.19584 -0.54513 2.13775 -1.39607 2.80873 -2.53747 0.5254 -0.89374 0.57794 -1.17552 0.57794 -3.09978 0 -1.92425 -0.0525 -2.20603 -0.57794 -3.09977 -1.13253 -1.92653 -2.84407 -2.92191 -5.03123 -2.92601 -3.350191 -0.006 -5.715 2.48712 -5.715 6.02578 0 3.53866 2.364809 6.03207 5.715 6.02579 0.87587 -0.002 1.6835 -0.14284 2.2225 -0.38854 z m 17.03917 2.8677 c -4.3589 -1.25299 -6.90028 -5.32977 -6.18861 -9.92752 0.6977 -4.50755 4.06543 -7.34488 8.72861 -7.35391 3.60701 -0.007 6.33878 1.73326 7.90267 5.0343 0.61969 1.30803 0.66983 1.58019 0.66983 3.63635 0 1.83772 -0.0886 2.45612 -0.51198 3.57194 -0.69267 1.8257 -2.3442 3.60081 -4.20025 4.51454 -1.23342 0.60721 -1.62463 0.69206 -3.42025 0.74187 -1.20041 0.0333 -2.41609 -0.0555 -2.98002 -0.21757 z m 4.71382 -2.87492 c 1.35881 -0.58245 2.36192 -1.55428 2.90331 -2.81278 1.83037 -4.2548 -0.74955 -8.84975 -4.96886 -8.84975 -2.90843 0 -4.8788 1.45968 -5.6949 4.21884 -0.41451 1.40144 -0.42576 2.13177 -0.0549 3.56158 0.49058 1.89121 2.00091 3.56973 3.65896 4.06644 1.11256 0.3333 3.16071 0.24246 4.15637 -0.18433 z m 16.41986 2.85915 c -3.76427 -1.34464 -5.95558 -4.9183 -5.6293 -9.18046 0.28443 -3.71546 2.54497 -6.59325 6.02289 -7.66747 5.25761 -1.62391 10.46111 1.62562 11.30737 7.06134 0.11631 0.74707 0.18178 3.18602 0.14549 5.41989 -0.0606 3.73376 -0.0991 4.08581 -0.47684 4.36164 -0.56778 0.41464 -10.21098 0.41893 -11.36961 0.005 z m 5.68765 -3.09494 c 2.01586 -1.00734 3.08201 -2.86938 3.08858 -5.39424 0.009 -3.48524 -2.40868 -6.02527 -5.7401 -6.03043 -3.1346 -0.005 -5.47424 2.26661 -5.70862 5.54227 -0.34705 4.85056 4.12626 7.99809 8.36014 5.8824 z m 11.91367 3.11604 -0.52917 -0.26766 -0.059 -7.82547 c -0.0324 -4.30402 -0.009 -8.03239 0.0528 -8.28528 0.14457 -0.59463 1.3212 -1.00914 2.06346 -0.72693 0.59939 0.22788 0.80019 0.6152 0.80019 1.54347 v 0.63961 l 0.78409 -0.68844 c 1.67324 -1.46912 3.87902 -2.02299 6.34641 -1.59359 0.94711 0.16482 1.97117 0.94247 1.97117 1.49686 0 0.18548 -0.23812 0.57534 -0.52914 0.86637 -0.45858 0.45858 -1.39095 -0.15477 -2.07887 -0.30066 -1.51473 -0.32125 -3.14326 0.49166 -4.05949 0.96731 -1.01619 0.52753 -1.90164 1.42473 -2.20904 2.23833 -0.13748 0.36388 -0.22513 2.68584 -0.22513 5.96422 v 5.36836 l -0.55771 0.43869 c -0.64148 0.50459 -1.02776 0.54055 -1.77062 0.16481 z m 18.89887 -0.0332 c -2.0913 -0.65359 -4.3268 -2.55204 -5.24642 -4.45543 -1.14861 -2.37732 -1.14924 -5.5846 -0.002 -8.09681 0.68652 -1.5028 2.43412 -3.30389 3.89382 -4.01299 1.04675 -0.50851 1.43921 -0.57782 3.30449 -0.58362 1.88182 -0.006 2.24655 0.0572 3.28727 0.56833 0.64383 0.3162 1.56735 0.9145 2.05225 1.32956 l 0.88163 0.75465 0.0644 -4.68237 c 0.0637 -4.629472 0.0701 -4.686942 0.56412 -5.086652 0.64811 -0.52425 1.61147 -0.5157 2.14623 0.0191 0.41303 0.41303 0.42334 0.70555 0.42334 12.017902 0 10.15142 -0.041 11.65312 -0.32951 12.065 -0.32491 0.46387 -0.39793 0.47024 -5.23875 0.45627 -3.43199 -0.01 -5.17765 -0.098 -5.8012 -0.29291 z m 4.91363 -2.83985 c 1.26085 -0.57476 2.17553 -1.43596 2.81304 -2.64857 0.4959 -0.94326 0.56978 -1.33051 0.57016 -2.98868 5.3e-4 -2.04103 -0.29037 -2.88891 -1.47305 -4.29444 -1.41769 -1.68483 -4.40322 -2.24862 -6.56836 -1.24036 -3.62328 1.68727 -4.52338 6.63134 -1.7768 9.75951 1.47904 1.68455 4.42145 2.33043 6.43501 1.41254 z" FillRule="NonZero"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+                    </Canvas>
+                </Viewbox>
+            </telerik:RadNavigationView.PaneHeader>
+            <telerik:RadNavigationView.Items>
+
+                <telerik:RadNavigationViewItem Name="btnAnnouncements" Click="BtnAnnouncements_Click">
+                    <telerik:RadNavigationViewItem.Content>
+                        <Grid Height="40" >
+                            <TextBlock  Text="Announcements"  FontSize="15" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left"/>
+                            <telerik:RadDropDownButton Name="btnAnnouncementsMax"  IsEnabled="False"
+                                   DropDownPlacement="Right"
+                                   telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="192" Height="40" Margin="0,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add PDF Announcement" />
+                                        <telerik:RadListBoxItem Content="Add Note Announcement" />
+                                        <telerik:RadListBoxItem Content="Manage Announcements" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                    </telerik:RadNavigationViewItem.Content>
+                    <telerik:RadNavigationViewItem.Icon>
+                        <Grid>
+                            <telerik:RadGlyph Glyph="&#xe400;" FontSize="15" Foreground="White"/>
+                            <telerik:RadDropDownButton Name="btnAnnouncementsMin" IsOpen="{Binding IsDropdownOpen}" 
+                                   DropDownPlacement="Right"  telerik:StyleManager.Theme="Material" IsEnabled="False"
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="50" Height="40"  Margin="-12,-10,-10,0"
+                                                    >
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add PDF Announcement" />
+                                        <telerik:RadListBoxItem Content="Add Note Announcement" />
+                                        <telerik:RadListBoxItem Content="Manage Announcements" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Name="btnCalendar" Click="BtnCalendar_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <Grid>
+                            <telerik:RadGlyph Glyph="&#xe108;" FontSize="15" Foreground="White"/>
+                            <telerik:RadDropDownButton Name="btnCalendarMin"
+                                   DropDownPlacement="Right" telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="50" Height="40" IsEnabled="False"  Margin="-12,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add Event" />
+                                        <telerik:RadListBoxItem Content="Manage Events" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Content>
+                        <Grid Height="40" >
+                            <TextBlock  Text="Calendar"  FontSize="15" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left"/>
+                            <telerik:RadDropDownButton Name="btnCalendarMax" 
+                                   DropDownPlacement="Right" IsEnabled="False"
+                                   telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="192" Height="40" Margin="0,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add Event" />
+                                        <telerik:RadListBoxItem Content="Manage Events" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+
+                    </telerik:RadNavigationViewItem.Content>
+
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Name="btnTimer" Click="BtnTimer_Click" >
+                    <telerik:RadNavigationViewItem.Icon>
+                        <Grid>
+                            <telerik:RadGlyph Glyph="&#xe107;" FontSize="15" Foreground="White"/>
+                            <telerik:RadDropDownButton Name="btnTimerMin" 
+                                   DropDownPlacement="Right" telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="50" Height="40" IsEnabled="False"  Margin="-12,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Start Timer" />
+                                        <telerik:RadListBoxItem Content="Manage Timer" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Content>
+                        <Grid Height="40" >
+                            <TextBlock  Text="Timer"  FontSize="15" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left"/>
+                            <telerik:RadDropDownButton Name="btnTimerMax" 
+                                   DropDownPlacement="Right" IsEnabled="False"
+                                   telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="192" Height="40" Margin="0,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Start Timer" />
+                                        <telerik:RadListBoxItem Content="Manage Timer" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                    </telerik:RadNavigationViewItem.Content>
+
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Name="btnAdminSettings"  Click="BtnAdminSettings_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <Grid>
+                            <telerik:RadGlyph Glyph="&#xe13b;" FontSize="15" Foreground="White"/>
+                            <telerik:RadDropDownButton Name="btnAdminSettingsMin"
+                                   DropDownPlacement="Right" telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="50" Height="40" IsEnabled="False"  Margin="-12,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add User" />
+                                        <telerik:RadListBoxItem Content="Manage Usergroups" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                      
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Content>
+                        <Grid Height="40" >
+                            <TextBlock  Text="Admin Settings"  FontSize="15" VerticalAlignment="Center" Foreground="White" HorizontalAlignment="Left"/>
+                            <telerik:RadDropDownButton Name="btnAdminSettingsMax"
+                                   DropDownPlacement="Right" IsEnabled="False"
+                                   telerik:StyleManager.Theme="Material" 
+                                   Style="{DynamicResource RadDropDownButtonStyle1}"
+                                   Width="192" Height="40" Margin="0,-10,-10,0">
+                                <telerik:RadDropDownButton.DropDownContent>
+                                    <telerik:RadListBox telerik:StyleManager.Theme="Material" SelectionChanged="RadListBox_SelectionChanged">
+                                        <telerik:RadListBoxItem Content="Add User" />
+                                        <telerik:RadListBoxItem Content="Manage Usergroups" />
+                                    </telerik:RadListBox>
+                                </telerik:RadDropDownButton.DropDownContent>
+
+                            </telerik:RadDropDownButton>
+                        </Grid>
+                    </telerik:RadNavigationViewItem.Content>
+                </telerik:RadNavigationViewItem>
+            </telerik:RadNavigationView.Items>
+            <telerik:RadNavigationView.Content>
+                <Frame Name="frmMain" NavigationUIVisibility="Hidden" Navigated="FrmMain_Navigated"/>
+
+
+            </telerik:RadNavigationView.Content>
+            <telerik:RadNavigationView.PaneFooter >
+                <telerik:RadNavigationViewItem telerik:StyleManager.Theme="Material" Name="btnUsername" Content="Username" Click="BtnUsername_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe801;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+            </telerik:RadNavigationView.PaneFooter>
+
+
+        </telerik:RadNavigationView>
+
+
+
     </Grid>
 </Window>

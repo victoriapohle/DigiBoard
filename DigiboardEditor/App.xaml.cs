@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Telerik.Windows.Controls;
 
 namespace DigiboardEditor
 {
@@ -13,5 +14,7 @@ namespace DigiboardEditor
     /// </summary>
     public partial class App : Application
     {
+
+
     }
 }

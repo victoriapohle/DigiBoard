@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DigiboardDisplay"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -262,7 +264,27 @@
             </Canvas>
         </Viewbox>
         <Border Grid.Row="1" Background="#FFCED54A"></Border>
-        <Border Grid.Row="2" Background="#D8E3E696"></Border>
+        <Border Grid.Row="2" Background="#D8E3E696">
+            <telerik:RadListBox Name="lbNotes" ItemsSource="{Binding NotesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
+                                telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold" Width="400" HorizontalAlignment="Left">
+                <telerik:RadListBox.DragDropBehavior>
+                    <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
+                </telerik:RadListBox.DragDropBehavior>
+                <telerik:RadListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Name="spUser" Width="350"   Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                            <TextBlock Text="{Binding announcementHeader, UpdateSourceTrigger=PropertyChanged}" FontSize="18" HorizontalAlignment="Center" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding announcementBody, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" HorizontalAlignment="Center" TextWrapping="Wrap" />
+
+                        </StackPanel>
+
+                    </DataTemplate>
+                </telerik:RadListBox.ItemTemplate>
+
+            </telerik:RadListBox>
+        </Border>
         <Border Grid.Row="3" Background="#FFCED54A"></Border>
         <TextBlock Text="{Binding TodaysDate}" Grid.Row="3" HorizontalAlignment="Center"></TextBlock>
 

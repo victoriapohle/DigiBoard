@@ -1,0 +1,36 @@
+﻿<Page x:Class="DigiboardEditor.Pages.ManageAnnouncementsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DigiboardEditor.Pages"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AnnouncementsView" Name="AnnouncementsView">
+    <Grid Background="#FF22328C">
+        <StackPanel Orientation="Vertical" Margin="40,0">
+            <telerik:RadListBox Name="lbNotes" ItemsSource="{Binding NotesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
+                                telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold">
+                <telerik:RadListBox.DragDropBehavior>
+                    <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
+                </telerik:RadListBox.DragDropBehavior>
+                <telerik:RadListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Name="spUser"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                           
+                            <TextBlock Text="{Binding announcementHeader, UpdateSourceTrigger=PropertyChanged}" FontSize="18" HorizontalAlignment="Center" Foreground="Gray"/>
+                            <TextBlock Text="{Binding announcementBody, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" HorizontalAlignment="Center" Foreground="Gray" />
+
+                        </StackPanel>
+
+                    </DataTemplate>
+                </telerik:RadListBox.ItemTemplate>
+
+            </telerik:RadListBox>
+            <Button Name="btnDeleteAnnouncement" Click="BtnDeleteAnnouncement_Click" telerik:StyleManager.Theme="Material">Delete Announcement</Button>
+
+        </StackPanel>
+    </Grid>
+</Page>

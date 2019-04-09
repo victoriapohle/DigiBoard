@@ -1,0 +1,60 @@
+﻿<Page x:Class="DigiboardEditor.Pages.PDFAnnouncementPage"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                Title="PDFAnnouncementsPage" Name="PDFPage" >
+    <Grid>
+        <Grid Background="#FF22328C">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" Width="400" VerticalAlignment="Center" Margin="40" >
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Announcement Header:</TextBlock>
+                    <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding Header}">
+                        <telerik:RadWatermarkTextBox.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                        </telerik:RadWatermarkTextBox.Background>
+                    </telerik:RadWatermarkTextBox>
+
+                    <telerik:RadDateTimePicker Name="dpStartDate" DateTimeWatermarkContent="Enter Start Display Date" SelectedValue="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      telerik:StyleManager.Theme="Material" Foreground="White">
+                        <telerik:RadDateTimePicker.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                        </telerik:RadDateTimePicker.Background>
+                    </telerik:RadDateTimePicker>
+                    <telerik:RadDateTimePicker Name="dpEndDate" DateTimeWatermarkContent="Enter End Display Date" Margin="0,5"
+                                       SelectedValue="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" telerik:StyleManager.Theme="Material" Foreground="White" SelectionChanged="DpEndDate_SelectionChanged">
+                        <telerik:RadDateTimePicker.Background>
+                            <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                        </telerik:RadDateTimePicker.Background>
+                    </telerik:RadDateTimePicker>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                        <telerik:RadButton Name="btnAddAnnouncement" Width="100" Margin="0,0,5,0" 
+                                   telerik:StyleManager.Theme="Material">Add</telerik:RadButton>
+                        <telerik:RadButton Name="btnCancelAnnouncement" Width="100" 
+                                   telerik:StyleManager.Theme="Material">Cancel</telerik:RadButton>
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,50">
+                    <StackPanel.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.3"/>
+                    </StackPanel.Background>
+                    <Button Click="RadButton_Click" telerik:StyleManager.Theme="Material">Open File</Button>
+                    <TextBlock x:Name="EmptyContent" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="There is no PDF selected to preview." FontStyle="Italic" 
+                          Foreground="LightGray" />
+                    <telerik:RadPdfViewer x:Name="pdfViewer" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                  Height="{Binding Path=PDFPage, Mode=TwoWay}" DataContext="{Binding CommandDescriptors, ElementName=pdfViewer}" 
+                                  telerik:RadPdfViewerAttachedComponents.RegisterSignSignatureDialog="True" 
+                                  telerik:RadPdfViewerAttachedComponents.RegisterFindDialog="True" 
+                                  Grid.Row="2" 
+                                  telerik:RadPdfViewerAttachedComponents.RegisterSignaturePropertiesDialog="True" 
+                                  telerik:RadPdfViewerAttachedComponents.RegisterContextMenu="True"
+                                  Document="{Binding PDFDocument,Mode=TwoWay}" telerik:StyleManager.Theme="Material"/>
+                </StackPanel>
+            </StackPanel>
+
+
+        </Grid>
+
+    </Grid>
+</Page>

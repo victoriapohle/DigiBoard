@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiboardDisplay", "DigiboardDisplay\DigiboardDisplay.csproj", "{978F9EF4-9B80-48F9-92CD-499C77AAD079}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigiboardDisplayUnitTestProject", "DigiboardDisplayUnitTestProject\DigiboardDisplayUnitTestProject.csproj", "{B751348D-2901-41C2-983E-CE060C6E0324}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{978F9EF4-9B80-48F9-92CD-499C77AAD079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{978F9EF4-9B80-48F9-92CD-499C77AAD079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{978F9EF4-9B80-48F9-92CD-499C77AAD079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B751348D-2901-41C2-983E-CE060C6E0324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B751348D-2901-41C2-983E-CE060C6E0324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B751348D-2901-41C2-983E-CE060C6E0324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B751348D-2901-41C2-983E-CE060C6E0324}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
