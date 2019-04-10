@@ -64,7 +64,7 @@ namespace DigiboardEditor.Pages
         }
         private void PopulateUsersCollection()
         {
-            UsersCollection = UserRepository.Instance.GetAll();
+            UsersCollection = UserRespository.Instance.Service.GetAll();
 
         }
 
@@ -92,10 +92,16 @@ namespace DigiboardEditor.Pages
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             User user = (User)lbUsers.SelectedItem;
-            if (user == null) return;
-            UserRepository.Instance.DeleteUser(user.UserID);
-            UsersCollection.Remove(user);
+            DeleteUser(user);
             PopulateUsersCollection();
+
+        }
+
+        private void DeleteUser(User user)
+        {
+            if (user == null) return;
+            UserRespository.Instance.Service.DeleteUser(user.UserID);
+            UsersCollection.Remove(user);
         }
     }
 }

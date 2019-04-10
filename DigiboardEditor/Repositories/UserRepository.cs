@@ -7,17 +7,36 @@ using System.Data.Entity;
 using System.Collections.ObjectModel;
 
 namespace DigiboardEditor
-{
-    public class UserRepository
+{   public interface IUserRepository
+    {
+        ObservableCollection<User> GetAll();
+        int DeleteUser(int userID);
+        User Add(User inUser);
+
+    }
+    public class UserRespository
+    {
+        private static UserRespository _instance;
+
+        public static UserRespository Instance
+        {
+            get { return _instance ?? (_instance = new UserRespository()); }
+        }
+        private IUserRepository _service;
+
+        public IUserRepository Service
+        {
+            get { return _service ?? (_service = new UserRepositoryDataService()); }
+            set { _service = value;}
+        }
+
+
+
+    }
+
+    public class UserRepositoryDataService: IUserRepository
     {
         private DigiboardEntities DB = new DigiboardEntities();
-
-        private static UserRepository _instance;
-
-        public static UserRepository Instance
-        {
-            get { return _instance ?? (_instance = new UserRepository()); }
-        }
 
 
         public ObservableCollection<User> GetAll()
@@ -26,17 +45,19 @@ namespace DigiboardEditor
             return userRoles;
         }
 
-        public void Add(User inUser)
+        public User Add(User inUser)
         {
             DB.Users.Add(inUser);
             DB.SaveChanges();
+            return inUser;
         }
 
-        public void DeleteUser(int userID)
+        public int DeleteUser(int userID)
         {
             User user = new ObservableCollection<User>(DB.Users.Where(x => x.UserID == userID)).FirstOrDefault();
             user.isDeleted = true;
-            DB.SaveChanges();
+            return DB.SaveChanges();
+
         }
     }
 }

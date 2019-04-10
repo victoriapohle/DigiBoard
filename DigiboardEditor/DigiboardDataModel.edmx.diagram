@@ -6,11 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="956a952e8c8b441aa7a2f3fd3a057ac1" Name="Diagram1">
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsNote" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="2.75" PointY="4.75" />
         <EntityTypeShape EntityType="DigiboardModel.UserLogHistory" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="DigiboardModel.UserRole" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="DigiboardModel.User" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="DigiboardModel.UserRole" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="DigiboardModel.User" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="DigiboardModel.FK__Users__roleID__4AB81AF0" />
+        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

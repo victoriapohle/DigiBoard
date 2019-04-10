@@ -9,28 +9,53 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AnnouncementsView" Name="AnnouncementsView">
     <Grid Background="#FF22328C">
-        <StackPanel Orientation="Vertical" Margin="40,0">
-            <telerik:RadListBox Name="lbNotes" ItemsSource="{Binding NotesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+        <StackPanel>
+            <StackPanel Orientation="Vertical" Margin="40,0">
+                <telerik:RadListBox Name="lbNotes" ItemsSource="{Binding NotesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedNote, Mode=TwoWay}" 
                              telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
                                 telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold">
-                <telerik:RadListBox.DragDropBehavior>
-                    <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
-                </telerik:RadListBox.DragDropBehavior>
-                <telerik:RadListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Name="spUser"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                           
-                            <TextBlock Text="{Binding announcementHeader, UpdateSourceTrigger=PropertyChanged}" FontSize="18" HorizontalAlignment="Center" Foreground="Gray"/>
-                            <TextBlock Text="{Binding announcementBody, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" HorizontalAlignment="Center" Foreground="Gray" />
+                    <telerik:RadListBox.DragDropBehavior>
+                        <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
+                    </telerik:RadListBox.DragDropBehavior>
+                    <telerik:RadListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Name="spUser"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-                        </StackPanel>
+                                <TextBlock Text="{Binding announcementHeader, UpdateSourceTrigger=PropertyChanged}" FontSize="18" HorizontalAlignment="Center" Foreground="Gray"/>
+                                <TextBlock Text="{Binding announcementBody, UpdateSourceTrigger=PropertyChanged}"  FontSize="18" HorizontalAlignment="Center" Foreground="Gray" />
 
-                    </DataTemplate>
-                </telerik:RadListBox.ItemTemplate>
+                            </StackPanel>
 
-            </telerik:RadListBox>
-            <Button Name="btnDeleteAnnouncement" Click="BtnDeleteAnnouncement_Click" telerik:StyleManager.Theme="Material">Delete Announcement</Button>
+                        </DataTemplate>
+                    </telerik:RadListBox.ItemTemplate>
 
+                </telerik:RadListBox>
+                <Button Name="btnDeleteAnnouncement" Click="BtnDeleteAnnouncement_Click" telerik:StyleManager.Theme="Material">Delete Note</Button>
+
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="40,0">
+                <telerik:RadListBox Name="lbPDF" ItemsSource="{Binding PDFCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding SelectedPDF, Mode=TwoWay}" 
+                             telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
+                                telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold">
+                    <telerik:RadListBox.DragDropBehavior>
+                        <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
+                    </telerik:RadListBox.DragDropBehavior>
+                    <telerik:RadListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Name="spUser"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                <TextBlock Text="{Binding pdfHeader, UpdateSourceTrigger=PropertyChanged}" FontSize="18" HorizontalAlignment="Center" Foreground="Gray"/>
+                                
+                             
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </telerik:RadListBox.ItemTemplate>
+
+                </telerik:RadListBox>
+                <Button Name="btnDeletePDF" Click="BtnDeletePDF_Click" telerik:StyleManager.Theme="Material">Delete PDF</Button>
+
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

@@ -25,11 +25,26 @@ namespace DigiboardEditor.Pages
     {
         public ManageAnnouncementsPage()
         {
-            InitializeComponent();
             DataContext = this;
-            PopulateUsersCollection();
+
+            InitializeComponent();
+            PopulateNotesCollection();
+            PopulatePDFCollection();
+            lbPDF.ItemsSource = PDFCollection;
             lbNotes.ItemsSource = NotesCollection;
         }
+        private ObservableCollection<AnnouncementsPDF> _pdfCollection;
+
+        public ObservableCollection<AnnouncementsPDF> PDFCollection
+        {
+            get { return _pdfCollection; }
+            set
+            {
+                _pdfCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<AnnouncementsNote> _notesCollection;
 
         public ObservableCollection<AnnouncementsNote> NotesCollection
@@ -41,9 +56,38 @@ namespace DigiboardEditor.Pages
                 OnPropertyChanged();
             }
         }
-        private void PopulateUsersCollection()
+        private AnnouncementsNote _selectedNote;
+
+        public AnnouncementsNote SelectedNote
         {
-            NotesCollection = NoteAnnouncementsRepository.Instance.GetAll();
+            get { return _selectedNote; }
+            set
+            {
+                _selectedNote = value;
+                OnPropertyChanged();
+            }
+        }
+        private AnnouncementsPDF _selectedPDF;
+
+        public AnnouncementsPDF SelectedPDF
+        {
+            get { return _selectedPDF; }
+            set
+            {
+                _selectedPDF = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private void PopulatePDFCollection()
+        {
+            PDFCollection = PDFAnnouncementsRepository.Instance.Service.GetAll();
+
+        }
+        private void PopulateNotesCollection()
+        {
+            NotesCollection = NoteAnnouncementsRepository.Instance.Service.GetAll();
 
         }
         #region INotifyPropertyChanged Members
@@ -68,7 +112,22 @@ namespace DigiboardEditor.Pages
 
         private void BtnDeleteAnnouncement_Click(object sender, RoutedEventArgs e)
         {
+            DeleteNote(SelectedNote);
+        }
+        public void DeleteNote(AnnouncementsNote note)
+        {
+            var thingy = NoteAnnouncementsRepository.Instance.Service.Delete(note.noteID);
+            NotesCollection.Remove(note);
+        }
+        public void DeletePDF(AnnouncementsPDF note)
+        {
+            var thingy = PDFAnnouncementsRepository.Instance.Service.Delete(note.pdfID);
+            PDFCollection.Remove(note);
+        }
 
+        private void BtnDeletePDF_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePDF(SelectedPDF);
         }
     }
 }

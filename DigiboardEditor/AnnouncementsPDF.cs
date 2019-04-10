@@ -15,11 +15,11 @@ namespace DigiboardEditor
     public partial class AnnouncementsPDF
     {
         public int pdfID { get; set; }
-        public string announcement { get; set; }
-        public Nullable<int> createdBy { get; set; }
+        public byte[] pdfBody { get; set; }
         public Nullable<System.DateTime> displayStartDate { get; set; }
         public Nullable<System.DateTime> displayEndDate { get; set; }
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<int> pdfOrder { get; set; }
+        public string pdfHeader { get; set; }
     }
 }

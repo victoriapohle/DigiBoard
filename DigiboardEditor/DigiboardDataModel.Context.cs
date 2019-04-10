@@ -26,9 +26,9 @@ namespace DigiboardEditor
         }
     
         public virtual DbSet<AnnouncementsNote> AnnouncementsNotes { get; set; }
-        public virtual DbSet<AnnouncementsPDF> AnnouncementsPDFs { get; set; }
         public virtual DbSet<UserLogHistory> UserLogHistories { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<AnnouncementsPDF> AnnouncementsPDFs { get; set; }
     }
 }

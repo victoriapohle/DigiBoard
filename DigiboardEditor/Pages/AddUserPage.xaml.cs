@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,7 +35,7 @@ namespace DigiboardEditor.Pages
         }
         private void PopulateUserRolesCollection()
         {
-            UserRoleCollection = UserRoleRepository.Instance.GetAll();
+            UserRoleCollection = UserRoleRepository.Instance.Service.GetAll();
 
         }
         #region INotifyPropertyChanged Members
@@ -120,22 +121,39 @@ namespace DigiboardEditor.Pages
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            AddNewUser();
+            AddNewUser(UserName, UserEmail, false, SelectedUserRole.roleID, GetSaltedPasswordHash(UserName, UserPassword));
             InitializePage();
             ManageUsergroupsPage ManageUsergroups = new ManageUsergroupsPage();
 
 
         }
 
-        public void AddNewUser()
+        public byte[] GetSaltedPasswordHash(string username, string password)
+        {
+            byte[] pwdBytes = Encoding.UTF8.GetBytes(password);
+            // byte[] salt = BitConverter.GetBytes(userId);
+            byte[] salt = Encoding.UTF8.GetBytes(username);
+            byte[] saltedPassword = new byte[pwdBytes.Length + salt.Length];
+
+            Buffer.BlockCopy(pwdBytes, 0, saltedPassword, 0, pwdBytes.Length);
+            Buffer.BlockCopy(salt, 0, saltedPassword, pwdBytes.Length, salt.Length);
+
+            SHA1 sha = SHA1.Create();
+
+            return sha.ComputeHash(saltedPassword);
+        }
+
+
+        public void AddNewUser(string userName , string userEmail, bool isDeleted, int roleID, byte[] userPassword)
         {
             User newUser = new User();
-            newUser.userName = UserName;
-            newUser.email = UserEmail;
-            newUser.isDeleted = false;
-            newUser.roleID = SelectedUserRole.roleID;
-            newUser.password = UserPassword;
-            UserRepository.Instance.Add(newUser);
+            newUser.userName = userName;
+            newUser.email = userEmail;
+            newUser.isDeleted = isDeleted;
+            newUser.roleID = roleID;
+            newUser.password = userPassword;
+            UserRespository.Instance.Service.Add(newUser);
+           
         }
 
         public void InitializePage()

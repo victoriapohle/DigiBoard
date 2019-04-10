@@ -22,12 +22,12 @@
             <PropertyRef Name="pdfID" />
           </Key>
           <Property Name="pdfID" Type="int" Nullable="false" />
-          <Property Name="announcement" Type="varchar" MaxLength="255" />
-          <Property Name="createdBy" Type="int" />
+          <Property Name="pdfBody" Type="varbinary(max)" />
           <Property Name="displayStartDate" Type="date" />
           <Property Name="displayEndDate" Type="date" />
           <Property Name="isDeleted" Type="bit" />
           <Property Name="pdfOrder" Type="int" />
+          <Property Name="pdfHeader" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="UserLogHistory">
           <Key>
@@ -55,7 +55,7 @@
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="roleID" Type="int" />
           <Property Name="isDeleted" Type="bit" />
-          <Property Name="password" Type="varchar" MaxLength="10" />
+          <Property Name="password" Type="binary" MaxLength="500" />
         </EntityType>
         <Association Name="FK__Users__roleID__4AB81AF0">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
@@ -86,7 +86,6 @@
       <Schema Namespace="DigiboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
-          <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
           <EntitySet Name="UserLogHistories" EntityType="DigiboardModel.UserLogHistory" />
           <EntitySet Name="UserRoles" EntityType="DigiboardModel.UserRole" />
           <EntitySet Name="Users" EntityType="DigiboardModel.User" />
@@ -94,6 +93,7 @@
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
         </EntityContainer>
         <EntityType Name="AnnouncementsNote">
           <Key>
@@ -106,18 +106,6 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="displayStartDate" Type="DateTime" Precision="0" />
           <Property Name="displayEndDate" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="AnnouncementsPDF">
-          <Key>
-            <PropertyRef Name="pdfID" />
-          </Key>
-          <Property Name="pdfID" Type="Int32" Nullable="false" />
-          <Property Name="announcement" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createdBy" Type="Int32" />
-          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
-          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <Property Name="pdfOrder" Type="Int32" />
         </EntityType>
         <EntityType Name="UserLogHistory">
           <Key>
@@ -146,8 +134,8 @@
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="roleID" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="password" Type="Binary" MaxLength="500" FixedLength="true" />
           <NavigationProperty Name="UserRole" Relationship="DigiboardModel.FK__Users__roleID__4AB81AF0" FromRole="User" ToRole="UserRole" />
-          <Property Name="password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Users__roleID__4AB81AF0">
           <End Type="DigiboardModel.UserRole" Role="UserRole" Multiplicity="0..1" />
@@ -161,6 +149,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AnnouncementsPDF">
+          <Key>
+            <PropertyRef Name="pdfID" />
+          </Key>
+          <Property Name="pdfID" Type="Int32" Nullable="false" />
+          <Property Name="pdfBody" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
+          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="pdfOrder" Type="Int32" />
+          <Property Name="pdfHeader" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -177,19 +177,6 @@
                 <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
                 <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
                 <ScalarProperty Name="noteID" ColumnName="noteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AnnouncementsPDFs">
-            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsPDF">
-              <MappingFragment StoreEntitySet="AnnouncementsPDF">
-                <ScalarProperty Name="pdfOrder" ColumnName="pdfOrder" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
-                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="announcement" ColumnName="announcement" />
-                <ScalarProperty Name="pdfID" ColumnName="pdfID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -221,6 +208,19 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnnouncementsPDFs">
+            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsPDF">
+              <MappingFragment StoreEntitySet="AnnouncementsPDF">
+                <ScalarProperty Name="pdfHeader" ColumnName="pdfHeader" />
+                <ScalarProperty Name="pdfOrder" ColumnName="pdfOrder" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
+                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
+                <ScalarProperty Name="pdfBody" ColumnName="pdfBody" />
+                <ScalarProperty Name="pdfID" ColumnName="pdfID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

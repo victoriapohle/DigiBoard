@@ -1,4 +1,4 @@
-﻿<Page x:Class="DigiboardEditor.Pages.NoteAnnouncementPage"
+﻿<Page x:Class="DigiboardEditor.Pages.AddNoteAnnouncementPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -28,12 +28,12 @@
                 </telerik:RadWatermarkTextBox.Background>
             </telerik:RadWatermarkTextBox>
             <telerik:RadDateTimePicker Name="dpStartDate" DateTimeWatermarkContent="Enter Start Display Date" SelectedValue="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                       DisplayDateStart="{x:Static sys:DateTime.Now}" telerik:StyleManager.Theme="Material">
+                                       DisplayDateStart="{x:Static sys:DateTime.Now}" telerik:StyleManager.Theme="Material" Foreground="White">
                 <telerik:RadDateTimePicker.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadDateTimePicker.Background>
             </telerik:RadDateTimePicker>
-            <telerik:RadDateTimePicker Name="dpEndDate" DateTimeWatermarkContent="Enter End Display Date" Margin="0,5" 
+            <telerik:RadDateTimePicker Name="dpEndDate" DateTimeWatermarkContent="Enter End Display Date" Margin="0,5" Foreground="White"
                                        SelectedValue="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" telerik:StyleManager.Theme="Material" >
                 <telerik:RadDateTimePicker.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>

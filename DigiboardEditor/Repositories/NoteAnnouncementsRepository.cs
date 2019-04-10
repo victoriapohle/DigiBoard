@@ -11,56 +11,50 @@ namespace DigiboardEditor
     {
         ObservableCollection<AnnouncementsNote> GetAll();
 
-        void DeleteUser(int ID);
+        ObservableCollection<AnnouncementsNote> Delete(int ID);
 
-        void Add(AnnouncementsNote note);
+        AnnouncementsNote Add(AnnouncementsNote note);
     }
 
     public class NoteAnnouncementsRepository 
     {
 
-        private static INoteAnnouncementsRepository _instance;
+        private static NoteAnnouncementsRepository _instance;
 
-        public static INoteAnnouncementsRepository Instance
+        public static NoteAnnouncementsRepository Instance
         {
-            get { return _instance ?? (_instance = new NoteAnnouncementsDataService()); }
+            get { return _instance ?? (_instance = new NoteAnnouncementsRepository()); }
         }
+
+        private INoteAnnouncementsRepository _service;
+
+        public INoteAnnouncementsRepository Service
+        {
+            get { return _service ?? (_service = new NoteAnnouncementsDataService()); }
+            set { _service = value; }
+        }
+
 
     }
 
-    public class MyOtherImplementation : INoteAnnouncementsRepository
-    {
-        public void Add(AnnouncementsNote note)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteUser(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ObservableCollection<AnnouncementsNote> GetAll()
-        {
-            return null;
-        }
-    }
 
     public class NoteAnnouncementsDataService : INoteAnnouncementsRepository
     {
         public DigiboardEntities DB = new DigiboardEntities();
 
-        public void DeleteUser(int ID)
+        public ObservableCollection<AnnouncementsNote> Delete(int ID)
         {
             AnnouncementsNote note = new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.noteID == ID)).FirstOrDefault();
             note.isDeleted = true;
             DB.SaveChanges();
+            return new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.isDeleted == false));
         }
 
-        public void Add(AnnouncementsNote note)
+        public AnnouncementsNote Add(AnnouncementsNote note)
         {
             DB.AnnouncementsNotes.Add(note);
             DB.SaveChanges();
+            return note;
         }
 
         public ObservableCollection<AnnouncementsNote> GetAll()

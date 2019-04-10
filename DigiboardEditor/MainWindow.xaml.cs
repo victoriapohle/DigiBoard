@@ -131,14 +131,14 @@ namespace DigiboardEditor
 
         private void RmiPDF_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
         {
-            NoteAnnouncementPage page = new NoteAnnouncementPage();
+            AddNoteAnnouncementPage page = new AddNoteAnnouncementPage();
             frmMain.Navigate(page);
 
         }
 
         private void RmiNote_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
         {
-            PDFAnnouncementPage page = new PDFAnnouncementPage();
+            AddPDFAnnouncementPage page = new AddPDFAnnouncementPage();
             frmMain.Navigate(page);
 
         }
@@ -184,12 +184,12 @@ namespace DigiboardEditor
             switch (selection)
             {
                 case "Add PDF Announcement":
-                    PDFAnnouncementPage pDFAnnouncementPage = new PDFAnnouncementPage();
+                    AddPDFAnnouncementPage pDFAnnouncementPage = new AddPDFAnnouncementPage();
                     frmMain.Navigate(pDFAnnouncementPage);
                     btnAnnouncementsMax.IsOpen = false;
                     break;
                 case "Add Note Announcement":
-                    NoteAnnouncementPage noteAnnouncementPage = new NoteAnnouncementPage();
+                    AddNoteAnnouncementPage noteAnnouncementPage = new AddNoteAnnouncementPage();
                     frmMain.Navigate(noteAnnouncementPage);
                     break;
                 case "Manage Announcements":

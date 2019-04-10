@@ -19,7 +19,7 @@ namespace DigiboardEditor
         public string email { get; set; }
         public Nullable<int> roleID { get; set; }
         public Nullable<bool> isDeleted { get; set; }
-        public string password { get; set; }
+        public byte[] password { get; set; }
     
         public virtual UserRole UserRole { get; set; }
     }

@@ -18,15 +18,16 @@ using System.Windows.Shapes;
 namespace DigiboardEditor.Pages
 {
     /// <summary>
-    /// Interaction logic for NoteAnnouncementPage.xaml
+    /// Interaction logic for AddNoteAnnouncementPage.xaml
     /// </summary>
-    public partial class NoteAnnouncementPage : Page
+    public partial class AddNoteAnnouncementPage : Page
     {
-        public NoteAnnouncementPage()
+        public AddNoteAnnouncementPage()
         {
             DataContext = this;
 
             InitializeComponent();
+  
             dpStartDate.SelectedDate = DateTime.Now.Date;
             dpEndDate.SelectedDate = DateTime.Now.Date;
 
@@ -34,14 +35,20 @@ namespace DigiboardEditor.Pages
 
         private void BtnAddAnnouncement_Click(object sender, RoutedEventArgs e)
         {
-            AnnouncementsNote newNote = new AnnouncementsNote();
-            newNote.announcementHeader = Header;
-            newNote.announcementBody = Body;
-            newNote.isDeleted = false;
-            newNote.displayStartDate = StartDate;
-            newNote.displayEndDate = EndDate;
-            NoteAnnouncementsRepository.Instance.Add(newNote);
+            AddNoteAnnouncement(Header, Body, false, StartDate, EndDate);
         }
+
+        private void AddNoteAnnouncement(string header, string body, bool isDeleted, DateTime startDate, DateTime endDate)
+        {
+            AnnouncementsNote newNote = new AnnouncementsNote();
+            newNote.announcementHeader = header;
+            newNote.announcementBody = body;
+            newNote.isDeleted = false;
+            newNote.displayStartDate = startDate;
+            newNote.displayEndDate = endDate;
+            NoteAnnouncementsRepository.Instance.Service.Add(newNote);
+        }
+
         private DateTime _startDate;
 
         public DateTime StartDate

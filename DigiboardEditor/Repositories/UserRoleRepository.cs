@@ -7,16 +7,31 @@ using System.Threading.Tasks;
 
 namespace DigiboardEditor
 {
+    public interface IUserRoleRepository
+    {
+        ObservableCollection<UserRole> GetAll();
+    }
     public class UserRoleRepository
     {
-        private DigiboardEntities DB = new DigiboardEntities();
-
         private static UserRoleRepository _instance;
 
         public static UserRoleRepository Instance
         {
             get { return _instance ?? (_instance = new UserRoleRepository()); }
         }
+
+        private IUserRoleRepository _service;
+
+        public IUserRoleRepository Service
+        {
+            get { return _service ?? (_service = new UserRoleRepositoryDataService()); }
+            set { _service = value; }
+        }
+
+    }
+    public class UserRoleRepositoryDataService:IUserRoleRepository
+    {
+        private DigiboardEntities DB = new DigiboardEntities();
 
 
 
