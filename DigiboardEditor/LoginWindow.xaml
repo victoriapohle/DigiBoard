@@ -6,8 +6,8 @@
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:DigiboardEditor"
         mc:Ignorable="d"
-         Height="450" Width="350" FontSize="14" Background="#FF3F51B5" WindowStartupLocation="CenterScreen" 
-        WindowStyle="None">
+         Height="450" Width="400" FontSize="14" Background="#FF3F51B5" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" KeyDown="Window_KeyDown">
     <Border Background="#FF22328C" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Margin="0,0,0,20">

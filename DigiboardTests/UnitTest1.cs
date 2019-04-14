@@ -57,7 +57,7 @@ namespace DigiboardTests
             NoteAnnouncementsRepository.Instance.Service = notesRepo.Object;
 
 
-        }
+        } 
 
         //method name | scenario | result
         [TestMethod]

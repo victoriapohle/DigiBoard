@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +25,46 @@ namespace DigiboardEditor.Pages
         public ManageEventsPage()
         {
             InitializeComponent();
+            DataContext = this;
+
         }
+        private DateTime _selectedDate;
+
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                _selectedDate = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        //Create OnPropertyChanged method to raise event
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (PropertyChanged != null)
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+        private void Calendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var thingy = calendar.SelectedDate;
+        }
+
+
     }
 }

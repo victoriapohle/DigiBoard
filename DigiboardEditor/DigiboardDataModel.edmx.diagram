@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="DigiboardModel.User" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="DigiboardModel.FK__Users__roleID__4AB81AF0" />
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DigiboardModel.Event" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

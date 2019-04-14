@@ -4,10 +4,47 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DigiboardEditor.Pages"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AddEventPage">
-    <Grid Background="DarkOrange">
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="White"> Add Events Page</TextBlock>
+    <Grid Background="#FF22328C">
+        <StackPanel Orientation="Vertical" Width="600" VerticalAlignment="Center" >
+
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Event Name:</TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbTitle" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding EventTitle}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadWatermarkTextBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Event Description:</TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbDescription" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding EventDescription}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadWatermarkTextBox>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Event Location:</TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbLocation" telerik:StyleManager.Theme="Material" Margin="0,0,0,20" Foreground="LightGray" Text="{Binding EventLocation}">
+                <telerik:RadWatermarkTextBox.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadWatermarkTextBox.Background>
+            </telerik:RadWatermarkTextBox>
+            <telerik:RadDateTimePicker Name="dpEventDate" DateTimeWatermarkContent="Enter Event Date" SelectedValue="{Binding EventDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       telerik:StyleManager.Theme="Material" Foreground="White" Margin="0,0,0,10">
+                <telerik:RadDateTimePicker.Background>
+                    <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                </telerik:RadDateTimePicker.Background>
+            </telerik:RadDateTimePicker>
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                <telerik:RadButton Name="btnAddEvent" Width="100" Margin="0,0,5,0" Click="BtnAddEvent_Click"
+                                   telerik:StyleManager.Theme="Material">Add</telerik:RadButton>
+                <telerik:RadButton Name="btnCancelEvent" Width="100" Click="BtnCancelEvent_Click"
+                                   telerik:StyleManager.Theme="Material">Cancel</telerik:RadButton>
+
+            </StackPanel>
+        </StackPanel>
+
     </Grid>
 </Page>

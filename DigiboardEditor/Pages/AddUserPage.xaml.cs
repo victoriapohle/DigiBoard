@@ -142,6 +142,12 @@ namespace DigiboardEditor.Pages
 
             return sha.ComputeHash(saltedPassword);
         }
+        //public bool ConfirmPassword(string password)
+        //{
+        //    byte[] passwordHash = Hash(password, _passwordSalt);
+
+        //    return _passwordHash.SequenceEqual(passwordHash);
+        //}
 
 
         public void AddNewUser(string userName , string userEmail, bool isDeleted, int roleID, byte[] userPassword)

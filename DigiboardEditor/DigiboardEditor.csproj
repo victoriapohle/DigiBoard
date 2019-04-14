@@ -121,6 +121,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DigiboardDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>DigiboardDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AddEventPage.xaml.cs">
       <DependentUpon>AddEventPage.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,7 @@
     <Compile Include="Pages\TimerPage.xaml.cs">
       <DependentUpon>TimerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\EventsRepository.cs" />
     <Compile Include="Repositories\NoteAnnouncementsRepository.cs" />
     <Compile Include="Repositories\PDFAnnouncementsRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

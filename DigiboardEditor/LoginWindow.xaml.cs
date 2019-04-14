@@ -28,6 +28,7 @@ namespace DigiboardEditor
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
+
             //ObservableCollection<User> UsersCollection = UserRepository.Instance.GetAll();
             //foreach (User user in UsersCollection)
             //{
@@ -55,6 +56,17 @@ namespace DigiboardEditor
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
+
+            }
         }
     }
 }

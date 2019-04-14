@@ -86,11 +86,10 @@
         <StackPanel Orientation="Horizontal">
         <qsf1:HeaderedContentControl Header="Calendar" Foreground="White" FontSize="18">
             <telerik:RadCalendar x:Name="calendar" telerik:StyleManager.Theme="Material"
-				Grid.Row="1" Width="700" Height="700" 
-				SelectionMode="Extended" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-				IsTodayHighlighted="True" ViewsHeaderVisibility="Collapsed"
-				Culture="en-US"
-			
+				Grid.Row="1" Width="700" Height="700" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+				SelectionMode="Extended" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+				IsTodayHighlighted="True" ViewsHeaderVisibility="Collapsed" 
+				Culture="en-US" SelectionChanged="Calendar_SelectionChanged"
 				 />
         </qsf1:HeaderedContentControl>
             <qsf1:HeaderedContentControl Grid.Column="1" Header="Events" Margin="-1 0 0 0" Foreground="White" FontSize="18">

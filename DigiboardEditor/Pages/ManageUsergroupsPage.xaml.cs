@@ -22,7 +22,7 @@ namespace DigiboardEditor.Pages
     /// <summary>
     /// Interaction logic for UsergroupsViewPage.xaml
     /// </summary>
-    public partial class ManageUsergroupsPage : Page
+    public partial class ManageUsergroupsPage : Page, INotifyPropertyChanged
     {
         public ManageUsergroupsPage()
         {

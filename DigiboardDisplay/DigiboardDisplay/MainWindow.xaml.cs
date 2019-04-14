@@ -18,8 +18,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
-
-
+using Telerik.Windows.Documents.Fixed;
+using Telerik.Windows.Controls.FixedDocumentViewersUI;
+using Telerik.Windows.Documents.Fixed.UI;
 
 namespace DigiboardDisplay
 {
@@ -33,9 +34,10 @@ namespace DigiboardDisplay
             InitializeComponent();
             DataContext = this;
             TodaysDate = DateTime.Now;
-            PopulateUsersCollection();
+            PopulateNoteCollection();
+            PopulatePDFCollection();
             lbNotes.ItemsSource = NotesCollection;
-            var URL = @"http://api.openweathermap.org/data/2.5/weather?q=37363,us&APPID=a30aeb6b37aa19af8299bde337377743&units=imperial";
+            var URL = @"http://api.openweathermap.org/data/2.5/weather?q=03603,us&APPID=a30aeb6b37aa19af8299bde337377743&units=imperial";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
             try
             {
@@ -44,8 +46,55 @@ namespace DigiboardDisplay
                 {
                     StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
                     var array = reader.ReadToEnd();
-                    
-                    var result = JsonConvert.DeserializeObject<RootObject> (array);
+
+                    var result = JsonConvert.DeserializeObject<RootObject>(array);
+                    var id = result.weather[0].id;
+                    if (id >= 200 && id < 300) /*img = "thunderstorm.png";*/
+                    {
+
+                    }
+                    else if (id >= 300 && id < 500) /*img = "drizzle.png";*/
+                    {
+                    }
+                    else if (id >= 500 && id < 600) /*img = "rain.png";*/
+                    {
+                    }
+                    else if (id >= 600 && id < 700) /*img = "snow.png";*/
+                    {
+                    }
+                    else if (id >= 700 && id < 800) /*img = "atmosphere.png";*/
+                    {
+                    }
+                    else if (id == 800)/* img = (timePeriod == 'd') ? "clear_day.png" : "clear_night.png";*/
+                    {
+                        ClearNight.Visibility = Visibility.Visible;
+
+                    }
+                    else if (id == 801)/* img = (timePeriod == 'd') ? "few_clouds_day.png" : "few_clouds_night.png";*/
+                    {
+                        Cloudy.Visibility = Visibility.Visible;
+
+                    }
+                    else if (id == 802 || id == 803)
+                    {
+                    } /*img = (timePeriod == 'd') ? "broken_clouds_day.png" : "broken_clouds_night.png";*/
+                    else if (id == 804)/* img = "overcast_clouds.png";*/
+                    {
+                    }
+                    else if (id >= 900 && id < 903) /*img = "extreme.png";*/
+                    {
+                    }
+                    else if (id == 903) /*img = "cold.png";*/
+                    {
+                    }
+                    else if (id == 904) /*img = "hot.png";*/
+                    {
+
+                    }
+                    else if (id == 905 || id >= 951) /*img = "windy.png";*/
+                    { }
+                    else if (id == 906) /*img = "hail.png";*/
+                    { }
 
                 }
             }
@@ -60,8 +109,35 @@ namespace DigiboardDisplay
                 }
                 throw;
             }
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+            MemoryStream ms = new MemoryStream(PDFCollection.First().pdfBody);
+            pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+            pdfViewer.Width = 600;
+            pdfViewer.ScaleMode = ScaleMode.FitToWidth;
+            //carouselPDF.ItemsSource = PDFCollection;
 
         }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            PopulatePDFCollection();
+            PopulateNoteCollection();
+        }
+        private ObservableCollection<AnnouncementsPDF> _pdfCollection;
+
+        public ObservableCollection<AnnouncementsPDF> PDFCollection
+        {
+            get { return _pdfCollection; }
+            set
+            {
+                _pdfCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private ObservableCollection<AnnouncementsNote> _notesCollection;
 
@@ -74,9 +150,15 @@ namespace DigiboardDisplay
                 OnPropertyChanged();
             }
         }
-        private void PopulateUsersCollection()
+        private void PopulateNoteCollection()
         {
             NotesCollection = NoteAnnouncementRepository.Instance.GetAll();
+
+        }
+
+        private void PopulatePDFCollection()
+        {
+            PDFCollection = PDFAnnouncementsRepository.Instance.Service.GetAll();
 
         }
         private DateTime _todaysDate;
@@ -84,7 +166,9 @@ namespace DigiboardDisplay
         public DateTime TodaysDate
         {
             get { return _todaysDate; }
-            set { _todaysDate = value;
+            set
+            {
+                _todaysDate = value;
                 OnPropertyChanged();
             }
         }
@@ -165,6 +249,13 @@ namespace DigiboardDisplay
         }
 
         #endregion
+
+        private void PdfViewer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
+
+
+        }
     }
 
 
