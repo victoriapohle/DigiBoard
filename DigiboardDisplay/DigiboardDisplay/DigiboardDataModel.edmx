@@ -29,61 +29,18 @@
           <Property Name="pdfOrder" Type="int" />
           <Property Name="pdfHeader" Type="varchar" MaxLength="150" />
         </EntityType>
-        <EntityType Name="UserLogHistory">
-          <Key>
-            <PropertyRef Name="logID" />
-          </Key>
-          <Property Name="logID" Type="int" Nullable="false" />
-          <Property Name="userID" Type="int" />
-          <Property Name="userName" Type="varchar" MaxLength="255" />
-          <Property Name="loginTime" Type="datetime" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="roleID" />
-          </Key>
-          <Property Name="roleID" Type="int" Nullable="false" />
-          <Property Name="roleName" Type="varchar" MaxLength="255" />
-          <Property Name="isDeleted" Type="bit" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="userName" Type="varchar" MaxLength="255" />
-          <Property Name="email" Type="varchar" MaxLength="255" />
-          <Property Name="roleID" Type="int" />
-          <Property Name="isDeleted" Type="bit" />
-          <Property Name="password" Type="binary" MaxLength="500" />
-        </EntityType>
-        <Association Name="FK__Users__roleID__4AB81AF0">
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserRole">
-              <PropertyRef Name="roleID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="roleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DigiboardModelStoreContainer">
           <EntitySet Name="AnnouncementsNote" EntityType="Self.AnnouncementsNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnnouncementsPDF" EntityType="Self.AnnouncementsPDF" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserLogHistory" EntityType="Self.UserLogHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Users__roleID__4AB81AF0" Association="Self.FK__Users__roleID__4AB81AF0">
-            <End Role="UserRole" EntitySet="UserRole" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DigiboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
+          <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
+        </EntityContainer>
         <EntityType Name="AnnouncementsNote">
           <Key>
             <PropertyRef Name="noteID" />
@@ -96,59 +53,6 @@
           <Property Name="displayStartDate" Type="DateTime" Precision="0" />
           <Property Name="displayEndDate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="UserLogHistory">
-          <Key>
-            <PropertyRef Name="logID" />
-          </Key>
-          <Property Name="logID" Type="Int32" Nullable="false" />
-          <Property Name="userID" Type="Int32" />
-          <Property Name="userName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="loginTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="UserRole">
-          <Key>
-            <PropertyRef Name="roleID" />
-          </Key>
-          <Property Name="roleID" Type="Int32" Nullable="false" />
-          <Property Name="roleName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Users__roleID__4AB81AF0" FromRole="UserRole" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="roleID" Type="Int32" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <NavigationProperty Name="UserRole" Relationship="Self.FK__Users__roleID__4AB81AF0" FromRole="Users" ToRole="UserRole" />
-          <Property Name="password" Type="Binary" MaxLength="500" FixedLength="true" />
-        </EntityType>
-        <Association Name="FK__Users__roleID__4AB81AF0">
-          <End Role="UserRole" Type="Self.UserRole" Multiplicity="0..1" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserRole">
-              <PropertyRef Name="roleID" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="roleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AnnouncementsNotes" EntityType="Self.AnnouncementsNote" />
-          <EntitySet Name="UserLogHistories" EntityType="Self.UserLogHistory" />
-          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__Users__roleID__4AB81AF0" Association="Self.FK__Users__roleID__4AB81AF0">
-            <End Role="UserRole" EntitySet="UserRoles" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
-        </EntityContainer>
         <EntityType Name="AnnouncementsPDF">
           <Key>
             <PropertyRef Name="pdfID" />
@@ -170,44 +74,13 @@
           <EntitySetMapping Name="AnnouncementsNotes">
             <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
               <MappingFragment StoreEntitySet="AnnouncementsNote">
-                <ScalarProperty Name="noteID" ColumnName="noteID" />
-                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
-                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
                 <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserLogHistories">
-            <EntityTypeMapping TypeName="DigiboardModel.UserLogHistory">
-              <MappingFragment StoreEntitySet="UserLogHistory">
-                <ScalarProperty Name="logID" ColumnName="logID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="loginTime" ColumnName="loginTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserRoles">
-            <EntityTypeMapping TypeName="DigiboardModel.UserRole">
-              <MappingFragment StoreEntitySet="UserRole">
-                <ScalarProperty Name="roleID" ColumnName="roleID" />
-                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DigiboardModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="roleID" ColumnName="roleID" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
+                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
+                <ScalarProperty Name="noteID" ColumnName="noteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

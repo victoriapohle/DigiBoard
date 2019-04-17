@@ -6,11 +6,11 @@
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         xmlns:local="clr-namespace:DigiboardEditor"
         mc:Ignorable="d"
-         Height="450" Width="400" FontSize="14" Background="#FF3F51B5" WindowStartupLocation="CenterScreen" 
+         Height="500" Width="400" FontSize="14" Background="#FF3F51B5" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" KeyDown="Window_KeyDown">
     <Border Background="#FF22328C" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
-            <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform" Margin="0,0,0,20">
+            <Viewbox  Stretch="Uniform" Margin="0,0,0,20">
                 <Canvas Name="svg3760" Width="161.60716" Height="32.11776">
                     <Canvas.RenderTransform>
                         <TranslateTransform X="0" Y="0"/>
@@ -32,11 +32,43 @@
             </Viewbox>
             <Separator Margin="0,0,0,20"></Separator>
             <Label Content="Email" Foreground="White"/>
-            <telerik:RadWatermarkTextBox Name="txtEmail" Background="#FF3F51B5" Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material"></telerik:RadWatermarkTextBox>
-            <Label Content="Password" Foreground="White"/>
-            <telerik:RadPasswordBox Name="txtPassword" Background="#FF3F51B5" Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material"></telerik:RadPasswordBox>
-            <telerik:RadButton Name="btnSubmit" Click="BtnSubmit_Click" Content="Login" Margin="60,10" Background="#FF3F51B5"
-                    Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material"></telerik:RadButton>
+            <telerik:RadWatermarkTextBox Name="txtEmail" Background="#FF3F51B5" Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material"
+                                         Text="{Binding UserEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Name="pnlLogonPassword">
+                <Label Content="Password" Foreground="White"/>
+                <telerik:RadPasswordBox Name="txtPassword" Background="#FF3F51B5" Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material"
+                                        Text="{Binding LoginPassword}" PasswordChanged="TxtPassword_PasswordChanged" />
+
+            </StackPanel>
+           
+            <StackPanel Name="pnlPasswords" Visibility="Collapsed">
+                <Label  Foreground="White"> Setup Password:</Label>
+
+                <telerik:RadPasswordBox Name="tbPassword" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" 
+                                    PasswordChanged="TbPassword_PasswordChanged" FontSize="18" Text="{Binding SetupPassword}" >
+                    <telerik:RadPasswordBox.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                    </telerik:RadPasswordBox.Background>
+                </telerik:RadPasswordBox>
+                <Label Foreground="White"> Confirm Password:</Label>
+                <telerik:RadPasswordBox Name="tbPasswordConfirm" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" FontSize="18"
+                                    Text="{Binding ConfirmPassword}" PasswordChanged="TbPasswordConfirm_PasswordChanged">
+                    <telerik:RadWatermarkTextBox.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                    </telerik:RadWatermarkTextBox.Background>
+                </telerik:RadPasswordBox>
+            </StackPanel>
+            <telerik:RadButton Name="btnSubmit" Click="BtnSubmit_Click" Content="Login" Margin="60,30" Background="#FF3F51B5"
+                    Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material" ></telerik:RadButton>
+            <telerik:RadButton Name="btnNewUser" Margin="30"  VerticalAlignment="Bottom"  Background="Transparent" BorderBrush="Transparent" 
+                               Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="BtnNewUser_Click" >
+                <StackPanel>
+                    <TextBlock Foreground="White">New User?</TextBlock>
+                    <Separator></Separator>
+                </StackPanel>
+
+
+            </telerik:RadButton>
         </StackPanel>
     </Border>
 </Window>

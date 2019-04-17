@@ -5,12 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="00c24138071f4d1e8d0e42f2d0118064" Name="Diagram1">
-        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsNote" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigiboardModel.UserLogHistory" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigiboardModel.UserRole" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DigiboardModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="DigiboardModel.FK__Users__roleID__4AB81AF0" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsNote" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

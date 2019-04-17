@@ -84,10 +84,7 @@ namespace DigiboardEditor.Pages
         }
         public object lb_item = null;
 
-        private void LbUsers_DragLeave(object sender, DragEventArgs e)
-        {
 
-        }
 
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {

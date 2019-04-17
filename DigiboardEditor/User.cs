@@ -15,11 +15,13 @@ namespace DigiboardEditor
     public partial class User
     {
         public int UserID { get; set; }
+        public string fullName { get; set; }
         public string userName { get; set; }
         public string email { get; set; }
+        public byte[] password { get; set; }
         public Nullable<int> roleID { get; set; }
         public Nullable<bool> isDeleted { get; set; }
-        public byte[] password { get; set; }
+        public Nullable<bool> isNewUser { get; set; }
     
         public virtual UserRole UserRole { get; set; }
     }

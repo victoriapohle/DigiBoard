@@ -12,8 +12,9 @@
 
     <Grid Background="#FF22328C">
         <StackPanel Orientation="Vertical" Width="400" VerticalAlignment="Center" >
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> User Name: </TextBlock>
-            <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding UserName}">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Full Name: </TextBlock>
+            <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" 
+                                         Text="{Binding FullName}">
                 <telerik:RadWatermarkTextBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>
@@ -24,7 +25,7 @@
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>
             </telerik:RadWatermarkTextBox>
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Setup Password:</TextBlock>
+            <!--<TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Setup Password:</TextBlock>
             <telerik:RadPasswordBox Name="tbPassword" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" PasswordChanged="TbPassword_PasswordChanged">
                 <telerik:RadPasswordBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
@@ -35,7 +36,7 @@
                 <telerik:RadWatermarkTextBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>
-            </telerik:RadPasswordBox>
+            </telerik:RadPasswordBox>-->
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> User Role :</TextBlock>
             <telerik:RadComboBox Name="cbUserRole" telerik:StyleManager.Theme="Material"  Margin="0,0,0,10" ItemsSource="{Binding UserRoleCollection}" DisplayMemberPath="roleName" SelectedItem="{Binding SelectedUserRole}" SelectedValuePath="roleID">
                 <telerik:RadComboBox.Background>

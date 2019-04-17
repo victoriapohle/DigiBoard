@@ -33,6 +33,8 @@ namespace DigiboardDisplay
         {
             InitializeComponent();
             DataContext = this;
+            tbDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy h:mm tt");
+
             TodaysDate = DateTime.Now;
             PopulateNoteCollection();
             PopulatePDFCollection();
@@ -116,7 +118,7 @@ namespace DigiboardDisplay
             MemoryStream ms = new MemoryStream(PDFCollection.First().pdfBody);
             pdfViewer.DocumentSource = new PdfDocumentSource(ms);
             pdfViewer.Width = 600;
-            pdfViewer.ScaleMode = ScaleMode.FitToWidth;
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
             //carouselPDF.ItemsSource = PDFCollection;
 
         }
@@ -125,6 +127,8 @@ namespace DigiboardDisplay
         {
             PopulatePDFCollection();
             PopulateNoteCollection();
+            tbDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy h:mm:ss tt");
+
         }
         private ObservableCollection<AnnouncementsPDF> _pdfCollection;
 
@@ -254,6 +258,12 @@ namespace DigiboardDisplay
         {
             pdfViewer.ScaleMode = ScaleMode.FitToPage;
 
+
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
 
         }
     }

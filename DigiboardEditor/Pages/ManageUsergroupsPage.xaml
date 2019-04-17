@@ -14,7 +14,6 @@
         <StackPanel Orientation="Vertical" Margin="40,0">
             <telerik:RadListBox Name="lbUsers" ItemsSource="{Binding UsersCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
-                                DragLeave="LbUsers_DragLeave"  
                                 telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold">
                 <telerik:RadListBox.DragDropBehavior>
                     <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>

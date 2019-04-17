@@ -59,7 +59,7 @@ namespace DigiboardEditor
 
         public ObservableCollection<Event> GetAll()
         {
-            ObservableCollection<Event> notes = new ObservableCollection<Event>(DB.Events.Where(x => x.isDeleted == false));
+            ObservableCollection<Event> notes = new ObservableCollection<Event>(DB.Events.Where(x => x.isDeleted == false || x.isDeleted == null));
             return notes;
         }
     }

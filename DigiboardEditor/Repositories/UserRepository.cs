@@ -12,6 +12,7 @@ namespace DigiboardEditor
         ObservableCollection<User> GetAll();
         int DeleteUser(int userID);
         User Add(User inUser);
+        void SaveChanges();
 
     }
     public class UserRespository
@@ -57,6 +58,11 @@ namespace DigiboardEditor
             User user = new ObservableCollection<User>(DB.Users.Where(x => x.UserID == userID)).FirstOrDefault();
             user.isDeleted = true;
             return DB.SaveChanges();
+
+        }
+        public void SaveChanges()
+        {
+            DB.SaveChanges();
 
         }
     }

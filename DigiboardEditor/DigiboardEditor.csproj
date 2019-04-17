@@ -142,6 +142,9 @@
     <Compile Include="Pages\AddPDFAnnouncementPage.xaml.cs">
       <DependentUpon>AddPDFAnnouncementPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\StartupPage.xaml.cs">
+      <DependentUpon>StartupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TimerPage.xaml.cs">
       <DependentUpon>TimerPage.xaml</DependentUpon>
     </Compile>
@@ -199,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\AddPDFAnnouncementPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StartupPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

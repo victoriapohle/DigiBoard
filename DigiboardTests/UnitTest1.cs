@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using DigiboardEditor;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -28,6 +29,14 @@ namespace DigiboardTests
                     notes.Add(note);
                     return note;
                 });
+            notesRepo.Setup(x => x.Delete(It.IsAny<int>()))
+     .Returns((int noteID) =>
+     {
+         var note = notes.FirstOrDefault(x => x.noteID == noteID);
+         note.isDeleted = true;
+
+         return 1;
+     });
 
             var users = new ObservableCollection<User>()
             {
@@ -57,7 +66,7 @@ namespace DigiboardTests
             NoteAnnouncementsRepository.Instance.Service = notesRepo.Object;
 
 
-        } 
+        }
 
         //method name | scenario | result
         [TestMethod]
@@ -80,11 +89,11 @@ namespace DigiboardTests
         }
         [TestMethod]
 
-        public void DeleteOne_AllBack()
+        public void DeleteOneNote_IntBack()
         {
-            //var results1 = NoteAnnouncementsRepository.Instance.Service.Delete(123);
+            var result = NoteAnnouncementsRepository.Instance.Service.Delete(123);
 
-            //Assert.AreEqual(1, results1.Count);
+            Assert.AreEqual(1, result);
         }
 
     }

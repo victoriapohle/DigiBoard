@@ -25,7 +25,7 @@ namespace DigiboardDisplay
             return notes;
         }
 
-        public void DeleteUser(int ID)
+        public void DeleteAnnouncement(int ID)
         {
             AnnouncementsNote note = new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.noteID == ID)).FirstOrDefault();
             note.isDeleted = true;

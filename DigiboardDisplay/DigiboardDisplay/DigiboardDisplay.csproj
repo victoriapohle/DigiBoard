@@ -114,15 +114,6 @@
     </Compile>
     <Compile Include="Repositories\NoteAnnouncementRepository.cs" />
     <Compile Include="Repositories\PDFAnnouncementsRepository.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>DigiboardDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserLogHistory.cs">
-      <DependentUpon>DigiboardDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="UserRole.cs">
-      <DependentUpon>DigiboardDataModel.tt</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

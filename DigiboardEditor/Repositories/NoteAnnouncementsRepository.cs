@@ -11,7 +11,7 @@ namespace DigiboardEditor
     {
         ObservableCollection<AnnouncementsNote> GetAll();
 
-        ObservableCollection<AnnouncementsNote> Delete(int ID);
+        int Delete(int ID);
 
         AnnouncementsNote Add(AnnouncementsNote note);
     }
@@ -42,12 +42,11 @@ namespace DigiboardEditor
     {
         public DigiboardEntities DB = new DigiboardEntities();
 
-        public ObservableCollection<AnnouncementsNote> Delete(int ID)
+        public int Delete(int ID)
         {
-            AnnouncementsNote note = new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.noteID == ID)).FirstOrDefault();
+            AnnouncementsNote note = DB.AnnouncementsNotes.FirstOrDefault(x => x.noteID == ID);
             note.isDeleted = true;
-            DB.SaveChanges();
-            return new ObservableCollection<AnnouncementsNote>(DB.AnnouncementsNotes.Where(x => x.isDeleted == false));
+            return DB.SaveChanges();
         }
 
         public AnnouncementsNote Add(AnnouncementsNote note)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,8 +25,11 @@ namespace DigiboardEditor.Pages
     {
         public ManageEventsPage()
         {
+
             InitializeComponent();
             DataContext = this;
+
+
 
         }
         private DateTime _selectedDate;
@@ -37,6 +41,27 @@ namespace DigiboardEditor.Pages
             {
                 _selectedDate = value;
                 OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<Event> _filteredEventsCollection;
+
+        public ObservableCollection<Event> FilteredEventsCollection
+        {
+            get { return _filteredEventsCollection; }
+            set
+            {
+                _filteredEventsCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        private void PopulateFilteredEvents()
+        {
+            if(SelectedDate != null)
+            {
+                FilteredEventsCollection = new ObservableCollection<Event>(EventsRepository.Instance.Service.GetAll().Where(x => x.eventDateTime.Value.Date == SelectedDate.Date));
+
             }
         }
 
@@ -62,9 +87,35 @@ namespace DigiboardEditor.Pages
 
         private void Calendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var thingy = calendar.SelectedDate;
+            PopulateFilteredEvents();
+            if(FilteredEventsCollection.Count == 0)
+            {
+                EmptyContent.Visibility = Visibility.Visible;
+                EventsHeader.Header = "Events";
+
+
+
+            }
+            else
+            {
+                EmptyContent.Visibility = Visibility.Collapsed;
+                EventsHeader.Header = "Events for " + SelectedDate.Date.ToString("dddd, dd MMMM yyyy");
+
+
+            }
+            lbEvents.ItemsSource = FilteredEventsCollection;
+            
+
         }
 
+        private void LbEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
 
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

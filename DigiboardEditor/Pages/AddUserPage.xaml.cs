@@ -30,7 +30,7 @@ namespace DigiboardEditor.Pages
             InitializeComponent();
             DataContext = this;
             PopulateUserRolesCollection();
-            
+
 
         }
         private void PopulateUserRolesCollection()
@@ -68,6 +68,18 @@ namespace DigiboardEditor.Pages
                 OnPropertyChanged();
             }
         }
+        private string _fullName;
+
+        public string FullName
+        {
+            get { return _fullName; }
+            set
+            {
+                _fullName = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _userEmail;
 
         public string UserEmail
@@ -121,7 +133,7 @@ namespace DigiboardEditor.Pages
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            AddNewUser(UserName, UserEmail, false, SelectedUserRole.roleID, GetSaltedPasswordHash(UserName, UserPassword));
+            AddNewUser(FullName, UserEmail, false, SelectedUserRole.roleID);
             InitializePage();
             ManageUsergroupsPage ManageUsergroups = new ManageUsergroupsPage();
 
@@ -150,24 +162,35 @@ namespace DigiboardEditor.Pages
         //}
 
 
-        public void AddNewUser(string userName , string userEmail, bool isDeleted, int roleID, byte[] userPassword)
+        public void AddNewUser(string fullName, string userEmail, bool isDeleted, int roleID)
         {
+            string userName = "";
+            if (!String.IsNullOrWhiteSpace(userEmail))
+            {
+                int charLocation = userEmail.IndexOf("@", StringComparison.Ordinal);
+
+                if (charLocation > 0)
+                {
+                    userName =  userEmail.Substring(0, charLocation);
+                }
+            }
             User newUser = new User();
+            newUser.fullName = fullName;
             newUser.userName = userName;
             newUser.email = userEmail;
             newUser.isDeleted = isDeleted;
             newUser.roleID = roleID;
-            newUser.password = userPassword;
+            newUser.isNewUser = true;
             UserRespository.Instance.Service.Add(newUser);
-           
+
         }
 
         public void InitializePage()
         {
             tbName.Text = null;
             tbEmail.Text = null;
-            tbPassword.Clear();
-            tbPasswordConfirm.Clear();
+            //tbPassword.Clear();
+            //tbPasswordConfirm.Clear();
             cbUserRole.SelectedItem = null;
         }
 
@@ -175,6 +198,11 @@ namespace DigiboardEditor.Pages
         {
             var pb = sender as RadPasswordBox;
             UserPassword = pb.Password;
+        }
+
+        private void TbName_Error(object sender, ValidationErrorEventArgs e)
+        {
+
         }
     }
 }

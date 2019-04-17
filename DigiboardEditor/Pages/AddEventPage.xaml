@@ -18,7 +18,8 @@
                 </telerik:RadWatermarkTextBox.Background>
             </telerik:RadWatermarkTextBox>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Event Description:</TextBlock>
-            <telerik:RadWatermarkTextBox Name="tbDescription" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding EventDescription}">
+            <telerik:RadWatermarkTextBox Name="tbDescription" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Height="200" 
+                                         Foreground="LightGray" Text="{Binding EventDescription}" AcceptsTab="True" AcceptsReturn="True" VerticalContentAlignment="Top">
                 <telerik:RadWatermarkTextBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>

@@ -17,6 +17,8 @@ using Telerik.Windows;
 using Telerik.Windows.Controls;
 
 //google authentication: https://stackoverflow.com/questions/48321034/wpf-application-authentication-with-google
+//Icon made by https://www.flaticon.com/authors/popcorns-arts from www.flaticon.com
+
 
 namespace DigiboardEditor
 {
@@ -27,6 +29,8 @@ namespace DigiboardEditor
             InitializeComponent();
             //State = new OAuthState();
             DataContext = this;
+            StartupPage page = new StartupPage();
+            frmMain.Navigate(page);
             this.Height = (System.Windows.SystemParameters.PrimaryScreenHeight);
             this.Width = (System.Windows.SystemParameters.PrimaryScreenWidth);
          
