@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="pdfID" />
           </Key>
-          <Property Name="pdfID" Type="int" Nullable="false" />
+          <Property Name="pdfID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pdfBody" Type="varbinary(max)" />
           <Property Name="displayStartDate" Type="date" />
           <Property Name="displayEndDate" Type="date" />
@@ -99,7 +99,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DigiboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
           <EntitySet Name="UserLogHistories" EntityType="DigiboardModel.UserLogHistory" />
           <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
           <EntitySet Name="Events" EntityType="DigiboardModel.Event" />
@@ -109,19 +108,8 @@
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
         </EntityContainer>
-        <EntityType Name="AnnouncementsNote">
-          <Key>
-            <PropertyRef Name="noteID" />
-          </Key>
-          <Property Name="noteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="announcementHeader" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="announcementBody" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createdBy" Type="Int32" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
-          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="UserLogHistory">
           <Key>
             <PropertyRef Name="logID" />
@@ -189,25 +177,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AnnouncementsNote">
+          <Key>
+            <PropertyRef Name="noteID" />
+          </Key>
+          <Property Name="noteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="announcementHeader" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="announcementBody" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
+          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DigiboardModelStoreContainer" CdmEntityContainer="DigiboardEntities">
-          <EntitySetMapping Name="AnnouncementsNotes">
-            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
-              <MappingFragment StoreEntitySet="AnnouncementsNote">
-                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
-                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
-                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
-                <ScalarProperty Name="noteID" ColumnName="noteID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserLogHistories">
             <EntityTypeMapping TypeName="DigiboardModel.UserLogHistory">
               <MappingFragment StoreEntitySet="UserLogHistory">
@@ -263,6 +250,19 @@
                 <ScalarProperty Name="userName" ColumnName="userName" />
                 <ScalarProperty Name="fullName" ColumnName="fullName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnnouncementsNotes">
+            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
+              <MappingFragment StoreEntitySet="AnnouncementsNote">
+                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
+                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
+                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
+                <ScalarProperty Name="noteID" ColumnName="noteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -7,6 +7,7 @@
       <Diagram DiagramId="00c24138071f4d1e8d0e42f2d0118064" Name="Diagram1">
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsNote" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DigiboardModel.Event" Width="1.5" PointX="5.375" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

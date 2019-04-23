@@ -72,7 +72,7 @@
                                Background="Transparent" DocumentSource="{Binding PDFBody, Mode=TwoWay, NotifyOnSourceUpdated=True}"
                                    DataContext="{Binding CommandDescriptors, ElementName=pdfViewer}" 
                                   telerik:RadPdfViewerAttachedComponents.RegisterSignSignatureDialog="True"
-                                  telerik:RadPdfViewerAttachedComponents.RegisterFindDialog="True" 
+                                  telerik:RadPdfViewerAttachedComponents.RegisterFindDialog="True"  
 
                                   telerik:RadPdfViewerAttachedComponents.RegisterSignaturePropertiesDialog="True" 
                                   telerik:RadPdfViewerAttachedComponents.RegisterContextMenu="True"

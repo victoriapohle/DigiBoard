@@ -58,8 +58,14 @@
                     </telerik:RadWatermarkTextBox.Background>
                 </telerik:RadPasswordBox>
             </StackPanel>
-            <telerik:RadButton Name="btnSubmit" Click="BtnSubmit_Click" Content="Login" Margin="60,30" Background="#FF3F51B5"
-                    Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material" ></telerik:RadButton>
+            <StackPanel Orientation="Horizontal" Margin="60,30" >
+                <telerik:RadButton Name="btnCancel" Click="BtnCancel_Click" Content="Cancel" Background="#FF3F51B5"
+                    Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material" Margin="3,0" />
+                <telerik:RadButton Name="btnSubmit" Click="BtnSubmit_Click" Content="Login"  Background="#FF3F51B5"
+                    Foreground="White" FontSize="18" telerik:StyleManager.Theme="Material" Margin="3,0" />
+
+            </StackPanel>
+           
             <telerik:RadButton Name="btnNewUser" Margin="30"  VerticalAlignment="Bottom"  Background="Transparent" BorderBrush="Transparent" 
                                Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="BtnNewUser_Click" >
                 <StackPanel>

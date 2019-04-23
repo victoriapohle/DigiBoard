@@ -21,7 +21,7 @@
           <Key>
             <PropertyRef Name="pdfID" />
           </Key>
-          <Property Name="pdfID" Type="int" Nullable="false" />
+          <Property Name="pdfID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pdfBody" Type="varbinary(max)" />
           <Property Name="displayStartDate" Type="date" />
           <Property Name="displayEndDate" Type="date" />
@@ -29,9 +29,21 @@
           <Property Name="pdfOrder" Type="int" />
           <Property Name="pdfHeader" Type="varchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventTitle" Type="varchar" MaxLength="100" />
+          <Property Name="eventDescription" Type="varchar" MaxLength="500" />
+          <Property Name="eventLocation" Type="varchar" MaxLength="50" />
+          <Property Name="isDeleted" Type="bit" />
+          <Property Name="eventDateTime" Type="datetime" />
+        </EntityType>
         <EntityContainer Name="DigiboardModelStoreContainer">
           <EntitySet Name="AnnouncementsNote" EntityType="Self.AnnouncementsNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnnouncementsPDF" EntityType="Self.AnnouncementsPDF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -40,6 +52,7 @@
         <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
           <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
+          <EntitySet Name="Events" EntityType="DigiboardModel.Event" />
         </EntityContainer>
         <EntityType Name="AnnouncementsNote">
           <Key>
@@ -64,6 +77,17 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="pdfOrder" Type="Int32" />
           <Property Name="pdfHeader" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="eventDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="eventLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="eventDateTime" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -94,6 +118,18 @@
                 <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
                 <ScalarProperty Name="pdfBody" ColumnName="pdfBody" />
                 <ScalarProperty Name="pdfID" ColumnName="pdfID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="DigiboardModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="eventDateTime" ColumnName="eventDateTime" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="eventLocation" ColumnName="eventLocation" />
+                <ScalarProperty Name="eventDescription" ColumnName="eventDescription" />
+                <ScalarProperty Name="eventTitle" ColumnName="eventTitle" />
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

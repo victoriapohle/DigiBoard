@@ -27,9 +27,8 @@ namespace DigiboardEditor.Pages
             DataContext = this;
 
             InitializeComponent();
-  
-            dpStartDate.SelectedDate = DateTime.Now.Date;
-            dpEndDate.SelectedDate = DateTime.Now.Date;
+ 
+            InitializePage();
 
         }
 
@@ -47,6 +46,7 @@ namespace DigiboardEditor.Pages
             newNote.displayStartDate = startDate;
             newNote.displayEndDate = endDate;
             NoteAnnouncementsRepository.Instance.Service.Add(newNote);
+            InitializePage();
         }
 
         private DateTime _startDate;
@@ -72,10 +72,19 @@ namespace DigiboardEditor.Pages
             }
         }
 
+        public void InitializePage()
+        {
+            tbHeader.Text = null;
+            tbBody.Text = null;
+            dpStartDate.SelectedValue = null;
+            dpEndDate.SelectedValue = null;
+            dpStartDate.SelectedDate = DateTime.Now.Date;
+            dpEndDate.SelectedDate = DateTime.Now.Date;
 
+        }
         private void BtnCancelAnnouncement_Click(object sender, RoutedEventArgs e)
         {
-
+            InitializePage();
         }
         private string _header;
 
@@ -119,5 +128,9 @@ namespace DigiboardEditor.Pages
 
         #endregion
 
+        private void TbEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -21,6 +21,7 @@ using Newtonsoft.Json;
 using Telerik.Windows.Documents.Fixed;
 using Telerik.Windows.Controls.FixedDocumentViewersUI;
 using Telerik.Windows.Documents.Fixed.UI;
+using System.Windows.Threading;
 
 namespace DigiboardDisplay
 {
@@ -37,9 +38,17 @@ namespace DigiboardDisplay
 
             TodaysDate = DateTime.Now;
             PopulateNoteCollection();
+            PopulateEventsCollection();
             PopulatePDFCollection();
+
+            CurrPDFIndex = 0;
+
+            MemoryStream ms = new MemoryStream(PDFCollection.Where(x => x.pdfID == 1).First().pdfBody);
+            pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+
             lbNotes.ItemsSource = NotesCollection;
-            var URL = @"http://api.openweathermap.org/data/2.5/weather?q=03603,us&APPID=a30aeb6b37aa19af8299bde337377743&units=imperial";
+            lbEvents.ItemsSource = FilteredEventCollection;
+            var URL = @"http://api.openweathermap.org/data/2.5/weather?q=37363,us&APPID=a30aeb6b37aa19af8299bde337377743&units=imperial";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
             try
             {
@@ -50,7 +59,10 @@ namespace DigiboardDisplay
                     var array = reader.ReadToEnd();
 
                     var result = JsonConvert.DeserializeObject<RootObject>(array);
-                    var id = result.weather[0].id;
+                    //var id = result.weather[0].id;
+                    var id = 801;
+
+
                     if (id >= 200 && id < 300) /*img = "thunderstorm.png";*/
                     {
 
@@ -97,8 +109,9 @@ namespace DigiboardDisplay
                     { }
                     else if (id == 906) /*img = "hail.png";*/
                     { }
-
+                    tempLabel.Content = result.main.temp + "ºF";
                 }
+
             }
             catch (WebException ex)
             {
@@ -112,14 +125,33 @@ namespace DigiboardDisplay
                 throw;
             }
             System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            System.Windows.Threading.DispatcherTimer PDFTimer = new System.Windows.Threading.DispatcherTimer();
+            PDFTimer.Tick += PDFTimer_Tick;
+            PDFTimer.Interval = new TimeSpan(0, 0, 30);
             dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            PDFTimer.Start();
             dispatcherTimer.Start();
-            MemoryStream ms = new MemoryStream(PDFCollection.First().pdfBody);
-            pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+
             pdfViewer.Width = 600;
             pdfViewer.ScaleMode = ScaleMode.FitToPage;
             //carouselPDF.ItemsSource = PDFCollection;
+
+        }
+        public int CurrPDFIndex { get; set; }
+        
+        private void PDFTimer_Tick(object sender, EventArgs e)
+        {
+            if (CurrPDFIndex < PDFCollection.Count)
+            {
+                MemoryStream ms = new MemoryStream(PDFCollection[CurrPDFIndex].pdfBody);
+                pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+
+            }
+            else {
+                CurrPDFIndex = 0;
+            }
+            CurrPDFIndex++;
 
         }
 
@@ -127,7 +159,10 @@ namespace DigiboardDisplay
         {
             PopulatePDFCollection();
             PopulateNoteCollection();
+            PopulateEventsCollection();
             tbDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy h:mm:ss tt");
+            lbNotes.ItemsSource = NotesCollection;
+            lbEvents.ItemsSource = FilteredEventCollection;
 
         }
         private ObservableCollection<AnnouncementsPDF> _pdfCollection;
@@ -141,6 +176,18 @@ namespace DigiboardDisplay
                 OnPropertyChanged();
             }
         }
+        private ObservableCollection<Event> _filteredEventCollection;
+
+        public ObservableCollection<Event> FilteredEventCollection
+        {
+            get { return _filteredEventCollection; }
+            set
+            {
+                _filteredEventCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
 
 
         private ObservableCollection<AnnouncementsNote> _notesCollection;
@@ -153,6 +200,11 @@ namespace DigiboardDisplay
                 _notesCollection = value;
                 OnPropertyChanged();
             }
+        }
+        private void PopulateEventsCollection()
+        {
+            FilteredEventCollection = EventsRepository.Instance.GetAll();
+
         }
         private void PopulateNoteCollection()
         {
@@ -266,7 +318,22 @@ namespace DigiboardDisplay
             pdfViewer.ScaleMode = ScaleMode.FitToPage;
 
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Refresh();
+
+
+        }
     }
 
 
+}
+public static class ExtensionMethods
+{
+    private static readonly Action EmptyDelegate = delegate { };
+    public static void Refresh(this UIElement uiElement)
+    {
+        uiElement.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate);
+    }
 }

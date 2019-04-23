@@ -16,7 +16,6 @@ using System.Windows.Threading;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 
-//google authentication: https://stackoverflow.com/questions/48321034/wpf-application-authentication-with-google
 //Icon made by https://www.flaticon.com/authors/popcorns-arts from www.flaticon.com
 
 

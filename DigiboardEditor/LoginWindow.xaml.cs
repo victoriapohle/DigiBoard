@@ -64,72 +64,78 @@ namespace DigiboardEditor
 
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
-            this.Close();
-            //User user = UserRespository.Instance.Service.GetAll().Where(x => x.email == UserEmail).FirstOrDefault();
-
-            //if(user != null)
-            //{
-
-            //    if (user.isNewUser == false || user.isNewUser == null)
-            //    {
-            //        if (LoginPassword == null) return; //Add Data Validation - Try Again Empty Password
-            //        var passwordEntered = GetSaltedPasswordHash(user.userName, LoginPassword);
-            //        if (passwordEntered.SequenceEqual(user.password))
-            //        {
-            //            MainWindow main = new MainWindow();
-            //            main.Show();
-            //            this.Close();
-            //        }
-            //        else
-            //        { 
-
-            //        //Add Data Validation - Try Again INcorrect Password
-            //        }
-            //    }
-            //    else
-            //    {
-            //        BtnNewUser_Click(null, null);
-            //        if(ConfirmPassword == SetupPassword)
-            //        {
-            //            user.isNewUser = false;
-            //            user.password = GetSaltedPasswordHash(user.userName, SetupPassword);
-            //            UserRespository.Instance.Service.SaveChanges();
-            //            MainWindow main = new MainWindow();
-            //            main.Show();
-            //            this.Close();
-            //        }
-            //        else
-            //        {
-            //            //Data Validation
-            //        }
-
-            //    }
-
-            //    if (ConfirmPassword == null && SetupPassword == null)
-            //    {
-            //        if (LoginPassword == null) return; // Add Data Validation
-            //        var passwordEntered = GetSaltedPasswordHash(user.userName, LoginPassword);
-            //        var thingy = passwordEntered.SequenceEqual(user.password);
-
-            //    }
-            //    else
-            //    {
-
-            //    }
-
-            //}
-            //else
-            //{
-            //    //Data Validation - Incorrect Email Try Again
-            //}
-
-            //txtEmail.Text = null;
-            //txtEmail.WatermarkContent = "Wrong Email. Try Again.";
             //MainWindow main = new MainWindow();
             //main.Show();
             //this.Close();
+            User user = UserRespository.Instance.Service.GetAll().Where(x => x.email == UserEmail).FirstOrDefault();
+            MainWindow main = new MainWindow();
+
+            if (user != null)
+            {
+
+                if (user.isNewUser == false || user.isNewUser == null)
+                {
+                    if (LoginPassword == null) return; //Add Data Validation - Try Again Empty Password
+                    var passwordEntered = GetSaltedPasswordHash(user.userName, LoginPassword);
+                    
+                    if (passwordEntered.SequenceEqual(TrimEnd(user.password)))
+                    {
+                        main.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+
+                        //Add Data Validation - Try Again INcorrect Password
+                    }
+                }
+                else
+                {
+                    if (ConfirmPassword == SetupPassword)
+                    {
+                        user.isNewUser = false;
+                        user.password = GetSaltedPasswordHash(user.userName, SetupPassword);
+                        UserRespository.Instance.Service.SaveChanges();
+                        main.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        //Data Validation
+                    }
+
+                }
+
+                if (ConfirmPassword == null && SetupPassword == null)
+                {
+                    if (LoginPassword == null) return; // Add Data Validation
+                    var passwordEntered = GetSaltedPasswordHash(user.userName, LoginPassword);
+                    var thingy = passwordEntered.SequenceEqual(user.password);
+
+                }
+                else
+                {
+
+                }
+
+            }
+            else
+            {
+                //Data Validation - Incorrect Email Try Again
+            }
+
+            txtEmail.Text = null;
+            txtEmail.WatermarkContent = "Wrong Email. Try Again.";
+            main.Show();
+            this.Close();
+        }
+        public static byte[] TrimEnd(byte[] array)
+        {
+            int lastIndex = Array.FindLastIndex(array, b => b != 0);
+
+            Array.Resize(ref array, lastIndex + 1);
+
+            return array;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -220,6 +226,11 @@ namespace DigiboardEditor
         {
             var pb = sender as RadPasswordBox;
             LoginPassword = pb.Password;
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

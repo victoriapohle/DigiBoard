@@ -1,31 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Documents;
+using Telerik.Windows.Controls.Animation;
 using Telerik.Windows.Documents.Fixed;
+using Telerik.Windows.Documents.Fixed.UI;
 
 namespace DigiboardEditor.Pages
 {
     /// <summary>
     /// Interaction logic for AddPDFAnnouncementPage.xaml
     /// </summary>
-    public partial class AddPDFAnnouncementPage : Page
+    public partial class AddPDFAnnouncementPage : System.Windows.Controls.Page
     {
         public AddPDFAnnouncementPage()
         {
@@ -35,6 +24,7 @@ namespace DigiboardEditor.Pages
             InitializeComponent();
             dpStartDate.SelectedDate = DateTime.Now.Date;
             dpEndDate.SelectedDate = DateTime.Now.Date;
+
         }
         #region INotifyPropertyChanged Members
 

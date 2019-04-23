@@ -13,16 +13,17 @@
 
 
     <Grid Background="#FF22328C">
-        <StackPanel Orientation="Vertical" Width="400" VerticalAlignment="Center" >
+        <StackPanel Orientation="Vertical" Width="600" VerticalAlignment="Center" >
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Announcement Header:</TextBlock>
-            <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding Header}">
+            <telerik:RadWatermarkTextBox Name="tbHeader" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding Header}">
                 <telerik:RadWatermarkTextBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>
             </telerik:RadWatermarkTextBox>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Announcement Body:</TextBlock>
-            <telerik:RadWatermarkTextBox Name="tbEmail" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" 
-                                         Text="{Binding Body}" MinHeight="200" TextWrapping="WrapWithOverflow">
+            <telerik:RadWatermarkTextBox Name="tbBody" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" 
+                                         Text="{Binding Body}" MinHeight="200" TextWrapping="WrapWithOverflow" AcceptsReturn="True" AcceptsTab="True" 
+                                         VerticalContentAlignment="Top" >
                 <telerik:RadWatermarkTextBox.Background>
                     <SolidColorBrush Color="LightGray" Opacity="0.15"/>
                 </telerik:RadWatermarkTextBox.Background>
