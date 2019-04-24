@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,19 +16,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Documents.Fixed;
+using Telerik.Windows.Documents.Fixed.UI;
 
 namespace DigiboardEditor.Pages
 {
     /// <summary>
     /// Interaction logic for AnnouncementsViewPage.xaml
     /// </summary>
-    public partial class ManageAnnouncementsPage : Page
+    public partial class ManageAnnouncementsPage : System.Windows.Controls.Page
     {
         public ManageAnnouncementsPage()
         {
-            DataContext = this;
 
             InitializeComponent();
+            DataContext = this;
+
             PopulateNotesCollection();
             PopulatePDFCollection();
             lbPDF.ItemsSource = PDFCollection;
@@ -112,7 +117,23 @@ namespace DigiboardEditor.Pages
 
         private void BtnDeleteAnnouncement_Click(object sender, RoutedEventArgs e)
         {
-            DeleteNote(SelectedNote);
+            if (SelectedNote == null) return;
+            RadWindow.Confirm("Are you sure you want to delete " + SelectedNote.announcementHeader + "?", this.OnClosedNote);
+
+            
+        }
+        private void OnClosedNote(object sender, WindowClosedEventArgs e)
+        {
+            var result = e.DialogResult;
+            if (result == true)
+            {
+                DeleteNote(SelectedNote);
+                PopulateNotesCollection();
+
+
+            }
+            lbNotes.SelectedItem = null;
+
         }
         public void DeleteNote(AnnouncementsNote note)
         {
@@ -121,13 +142,50 @@ namespace DigiboardEditor.Pages
         }
         public void DeletePDF(AnnouncementsPDF note)
         {
+
             var thingy = PDFAnnouncementsRepository.Instance.Service.Delete(note.pdfID);
             PDFCollection.Remove(note);
         }
 
+
         private void BtnDeletePDF_Click(object sender, RoutedEventArgs e)
         {
-            DeletePDF(SelectedPDF);
+            if (SelectedPDF == null) return;
+            RadWindow.Confirm("Are you sure you want to delete "+ SelectedPDF.pdfHeader + "?", this.OnClosedPDF);
+            
+           
+        }
+        private void OnClosedPDF(object sender, WindowClosedEventArgs e)
+        {
+            var result = e.DialogResult;
+            if (result == true)
+            {
+                DeletePDF(SelectedPDF);
+                PopulatePDFCollection();
+
+      
+            }
+            lbPDF.SelectedItem = null;
+            pdfViewer.Visibility = Visibility.Collapsed;
+        }
+        private void LbPDF_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectedPDF == null) return;
+            MemoryStream ms = new MemoryStream(SelectedPDF.pdfBody);
+            pdfViewer.Visibility = Visibility.Visible;
+            pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+            pdfViewer.Width = 350;
+
+        }
+
+        private void PdfViewer_DocumentChanged(object sender, DocumentChangedEventArgs e)
+        {
+
+            if (pdfViewer.Document != null)
+            {
+                this.pdfViewer.ScaleFactor = 0.35;
+
+            }
         }
     }
 }

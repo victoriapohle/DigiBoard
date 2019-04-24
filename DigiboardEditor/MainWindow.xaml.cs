@@ -25,6 +25,7 @@ namespace DigiboardEditor
     {
         public MainWindow()
         {
+            StyleManager.ApplicationTheme = new MaterialTheme();
             InitializeComponent();
             //State = new OAuthState();
             DataContext = this;
