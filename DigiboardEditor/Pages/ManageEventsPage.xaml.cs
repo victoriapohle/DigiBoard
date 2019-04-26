@@ -15,13 +15,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace DigiboardEditor.Pages
 {
     /// <summary>
     /// Interaction logic for ManageEventsPage.xaml
     /// </summary>
-    public partial class ManageEventsPage : Page
+    public partial class ManageEventsPage : Page, INotifyPropertyChanged
     {
         public ManageEventsPage()
         {
@@ -32,6 +33,18 @@ namespace DigiboardEditor.Pages
 
 
         }
+        private Event _selectedEvent;
+
+        public Event SelectedEvent
+        {
+            get { return _selectedEvent; }
+            set
+            {
+                _selectedEvent = value;
+                OnPropertyChanged();
+            }
+        }
+
         private DateTime _selectedDate;
 
         public DateTime SelectedDate
@@ -58,9 +71,25 @@ namespace DigiboardEditor.Pages
 
         private void PopulateFilteredEvents()
         {
-            if(SelectedDate != null)
+            if (SelectedDate != null)
             {
                 FilteredEventsCollection = new ObservableCollection<Event>(EventsRepository.Instance.Service.GetAll().Where(x => x.eventDateTime.Value.Date == SelectedDate.Date));
+                lbEvents.ItemsSource = FilteredEventsCollection;
+
+
+            }
+            if (FilteredEventsCollection.Count == 0)
+            {
+                EmptyContent.Visibility = Visibility.Visible;
+                EventsHeader.Header = "Events";
+
+
+
+            }
+            else
+            {
+                EmptyContent.Visibility = Visibility.Collapsed;
+                EventsHeader.Header = "Events for " + SelectedDate.Date.ToString("dddd, dd MMMM yyyy");
 
             }
         }
@@ -88,34 +117,45 @@ namespace DigiboardEditor.Pages
         private void Calendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             PopulateFilteredEvents();
-            if(FilteredEventsCollection.Count == 0)
-            {
-                EmptyContent.Visibility = Visibility.Visible;
-                EventsHeader.Header = "Events";
 
 
-
-            }
-            else
-            {
-                EmptyContent.Visibility = Visibility.Collapsed;
-                EventsHeader.Header = "Events for " + SelectedDate.Date.ToString("dddd, dd MMMM yyyy");
-
-
-            }
-            lbEvents.ItemsSource = FilteredEventsCollection;
-            
 
         }
 
         private void LbEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            PopulateFilteredEvents();
+
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void LbEvents_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+
+            {
+                if (SelectedEvent == null) return;
+                RadWindow.Confirm("Are you sure you want to delete " + SelectedEvent.eventTitle + "?", this.OnClosed);
+
+            }
+        }
+        private void OnClosed(object sender, WindowClosedEventArgs e)
+        {
+            var result = e.DialogResult;
+            if (result == true)
+            {
+                EventsRepository.Instance.Service.Delete(SelectedEvent.eventID);
+                FilteredEventsCollection.Remove(SelectedEvent);
+                PopulateFilteredEvents();
+
+
+            }
+            lbEvents.SelectedItem = null;
+      
         }
     }
 }

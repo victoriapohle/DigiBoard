@@ -9,16 +9,16 @@
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1600"
       Title="AnnouncementsView" Name="AnnouncementsView">
-    <Grid Background="#FF22328C">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <StackPanel Orientation="Vertical" Margin="40,0">
-                <qsf1:HeaderedContentControl Name="AnnouncementsHeader" Header="Note Announcements" Foreground="White" HorizontalAlignment="Center" 
+    <Grid Background="#FF22328C" >
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="40" >
+            <StackPanel Orientation="Vertical" >
+                <qsf1:HeaderedContentControl Name="AnnouncementsHeader" Header="Note Announcements" Foreground="White" HorizontalAlignment="Center" Background="Bisque"
                    VerticalAlignment="Top"  FontSize="25" FontFamily="Verdana" FontWeight="Bold" Grid.Column="0" Grid.Row="2"  Margin="10" Panel.ZIndex="1"  >
                     
                     <Grid>
                         <telerik:RadListBox Name="lbNotes" ItemsSource="{Binding ElementName=ManageEvents, Path=NotesCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              telerik:StyleManager.Theme="Material" HorizontalAlignment="Stretch"  Background="Transparent" SelectedItem="{Binding SelectedNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Foreground="White"  Width="700"
+                                        Foreground="White"  Width="700" KeyDown="LbNotes_KeyDown"
 >
                             <telerik:RadListBox.ItemTemplate>
                                 <DataTemplate>
@@ -27,8 +27,8 @@
                                         <StackPanel.Background>
                                             <SolidColorBrush Color="#FFEBEBEB" Opacity="0.5"/>
                                         </StackPanel.Background>
-                                        <TextBlock Text="{Binding announcementHeader}"  FontSize="20" HorizontalAlignment="Left" Foreground="#FF184F2C" Margin="5,5,0,5" FontWeight="Bold" />
-                                        <TextBlock Text="{Binding announcementBody}"  FontSize="15" HorizontalAlignment="Left" Foreground="#FF184F2C"  Margin="5,0,5,5" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding announcementHeader}"  FontSize="20" HorizontalAlignment="Left" Foreground="#FF22328C" Margin="5,5,0,5" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding announcementBody}"  FontSize="15" HorizontalAlignment="Left" Foreground="White"  Margin="5,0,5,5" TextWrapping="Wrap"/>
 
 
 
@@ -68,7 +68,8 @@
                     </telerik:RadListBox.ItemTemplate>
 
                 </telerik:RadListBox>-->
-                <Button Name="btnDeleteAnnouncement" Click="BtnDeleteAnnouncement_Click" telerik:StyleManager.Theme="Material" Width="{Binding ActualWidth, ElementName=AnnouncementsHeader}">
+                <Button Name="btnDeleteAnnouncement" Click="BtnDeleteAnnouncement_Click" telerik:StyleManager.Theme="Material"
+                        Width="{Binding ActualWidth, ElementName=AnnouncementsHeader}" Visibility="Collapsed">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <telerik:RadGlyph Glyph="&#xe10c;" Margin="10,0"></telerik:RadGlyph>
@@ -94,7 +95,7 @@
                         </Grid.ColumnDefinitions>
                         <telerik:RadListBox Name="lbPDF" ItemsSource="{Binding ElementName=ManageEvents, Path=PDFCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              telerik:StyleManager.Theme="Material"  Background="Transparent" Grid.Column="0" SelectedItem="{Binding SelectedPDF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Foreground="White"   SelectionChanged="LbPDF_SelectionChanged" >
+                                        Foreground="White"   SelectionChanged="LbPDF_SelectionChanged"  KeyDown="LbPDF_KeyDown">
                             <telerik:RadListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Name="spPDF"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -103,7 +104,7 @@
                                         <StackPanel.Background>
                                             <SolidColorBrush Color="#FFEBEBEB" Opacity="0.5"/>
                                         </StackPanel.Background>
-                                        <TextBlock Text="{Binding pdfHeader}"  FontSize="20" HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="#FF184F2C" Margin="5,5,0,5" FontWeight="Bold" />
+                                        <TextBlock Text="{Binding pdfHeader}"  FontSize="20" HorizontalAlignment="Left" TextWrapping="Wrap" Foreground="#FF22328C" Margin="5,5,0,5" FontWeight="Bold" />
                                     </StackPanel>
 
                                 </DataTemplate>
@@ -146,7 +147,7 @@
 
                 </telerik:RadListBox>-->
 
-                <Button Name="btnDeletePDF" Click="BtnDeletePDF_Click" telerik:StyleManager.Theme="Material" Width="{Binding ActualWidth, ElementName=PDFHeader}">
+                <Button Name="btnDeletePDF" Click="BtnDeletePDF_Click" telerik:StyleManager.Theme="Material" Width="{Binding ActualWidth, ElementName=PDFHeader}" Visibility="Collapsed">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <telerik:RadGlyph Glyph="&#xe10c;" Margin="10,0"></telerik:RadGlyph>

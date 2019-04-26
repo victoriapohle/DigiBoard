@@ -421,7 +421,7 @@
             </StackPanel>
         </StackPanel>
         <!--<Image Name="img" Height="100" Width="100" Source="http://openweathermap.org/img/w/11d.png" Grid.Column="1"/>-->
-        <telerik:RadPdfViewer Name="pdfViewer" Grid.Column="1" Grid.Row="2" SizeChanged="PdfViewer_SizeChanged"   />
+        <telerik:RadPdfViewer Name="pdfViewer" Grid.Column="1" Grid.Row="2" SizeChanged="PdfViewer_SizeChanged" Background="Transparent"   />
         <Border Grid.Row="3" Background="#FFCED54A" Grid.ColumnSpan="3"></Border>
         <TextBlock Name="tbDate" Background="Transparent" Foreground="#FF184F2C" HorizontalAlignment="Center"
                    VerticalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0" FontSize="30" FontFamily="Verdana" 

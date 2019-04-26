@@ -16,6 +16,8 @@
 
 
         <StackPanel Orientation="Vertical"  VerticalAlignment="Center" Margin="40" Grid.Column="0" Grid.RowSpan="4">
+            <telerik:RadGlyph Glyph="&#xe64f;" FontSize="150" Foreground="White" HorizontalAlignment="Center" ></telerik:RadGlyph>
+            <TextBlock HorizontalAlignment="Center" Text="Add PDF" Foreground="White"  FontSize="25" FontFamily="Verdana" FontWeight="Bold" Margin="-20,10,0,50"></TextBlock>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Announcement Header:</TextBlock>
             <telerik:RadWatermarkTextBox Name="tbHeader" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding Header}">
                 <telerik:RadWatermarkTextBox.Background>

@@ -16,6 +16,7 @@
           <Property Name="isDeleted" Type="bit" />
           <Property Name="displayStartDate" Type="date" />
           <Property Name="displayEndDate" Type="date" />
+          <Property Name="createdByUserID" Type="int" />
         </EntityType>
         <EntityType Name="AnnouncementsPDF">
           <Key>
@@ -28,6 +29,7 @@
           <Property Name="isDeleted" Type="bit" />
           <Property Name="pdfOrder" Type="int" />
           <Property Name="pdfHeader" Type="varchar" MaxLength="150" />
+          <Property Name="createdByUserID" Type="int" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -39,14 +41,14 @@
           <Property Name="eventLocation" Type="varchar" MaxLength="50" />
           <Property Name="isDeleted" Type="bit" />
           <Property Name="eventDateTime" Type="datetime" />
+          <Property Name="createdByUserID" Type="int" />
         </EntityType>
         <EntityType Name="UserLogHistory">
           <Key>
             <PropertyRef Name="logID" />
           </Key>
-          <Property Name="logID" Type="int" Nullable="false" />
+          <Property Name="logID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userID" Type="int" />
-          <Property Name="userName" Type="varchar" MaxLength="255" />
           <Property Name="loginTime" Type="datetime" />
         </EntityType>
         <EntityType Name="UserRole">
@@ -82,6 +84,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_AnnouncementsNote_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="AnnouncementsNote" Type="Self.AnnouncementsNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AnnouncementsNote">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnnouncementsPDF_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="AnnouncementsPDF" Type="Self.AnnouncementsPDF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AnnouncementsPDF">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserLogHistory_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserLogHistory" Type="Self.UserLogHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLogHistory">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DigiboardModelStoreContainer">
           <EntitySet Name="AnnouncementsNote" EntityType="Self.AnnouncementsNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnnouncementsPDF" EntityType="Self.AnnouncementsPDF" Schema="dbo" store:Type="Tables" />
@@ -93,43 +143,82 @@
             <End Role="UserRole" EntitySet="UserRole" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_AnnouncementsNote_Users" Association="Self.FK_AnnouncementsNote_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AnnouncementsNote" EntitySet="AnnouncementsNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnnouncementsPDF_Users" Association="Self.FK_AnnouncementsPDF_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AnnouncementsPDF" EntitySet="AnnouncementsPDF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="Self.FK_Events_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserLogHistory_Users" Association="Self.FK_UserLogHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserLogHistory" EntitySet="UserLogHistory" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DigiboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DigiboardEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="UserLogHistories" EntityType="DigiboardModel.UserLogHistory" />
+          <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
           <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
           <EntitySet Name="Events" EntityType="DigiboardModel.Event" />
           <EntitySet Name="UserRoles" EntityType="DigiboardModel.UserRole" />
           <EntitySet Name="Users" EntityType="DigiboardModel.User" />
+          <AssociationSet Name="FK_AnnouncementsNote_Users" Association="DigiboardModel.FK_AnnouncementsNote_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AnnouncementsNote" EntitySet="AnnouncementsNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnnouncementsPDF_Users" Association="DigiboardModel.FK_AnnouncementsPDF_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="AnnouncementsPDF" EntitySet="AnnouncementsPDFs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Users" Association="DigiboardModel.FK_Events_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
           <AssociationSet Name="FK__Users__roleID__4AB81AF0" Association="DigiboardModel.FK__Users__roleID__4AB81AF0">
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
-          <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
+          <EntitySet Name="UserLogHistories" EntityType="DigiboardModel.UserLogHistory" />
+          <AssociationSet Name="FK_UserLogHistory_Users" Association="DigiboardModel.FK_UserLogHistory_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLogHistory" EntitySet="UserLogHistories" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="UserLogHistory">
+        <EntityType Name="AnnouncementsNote">
           <Key>
-            <PropertyRef Name="logID" />
+            <PropertyRef Name="noteID" />
           </Key>
-          <Property Name="logID" Type="Int32" Nullable="false" />
-          <Property Name="userID" Type="Int32" />
-          <Property Name="userName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="loginTime" Type="DateTime" Precision="3" />
+          <Property Name="noteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="announcementHeader" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="announcementBody" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdBy" Type="Int32" />
+          <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
+          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="createdByUserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DigiboardModel.FK_AnnouncementsNote_Users" FromRole="AnnouncementsNote" ToRole="User" />
         </EntityType>
         <EntityType Name="AnnouncementsPDF">
           <Key>
             <PropertyRef Name="pdfID" />
           </Key>
-          <Property Name="pdfID" Type="Int32" Nullable="false" />
+          <Property Name="pdfID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pdfBody" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="displayStartDate" Type="DateTime" Precision="0" />
           <Property Name="displayEndDate" Type="DateTime" Precision="0" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="pdfOrder" Type="Int32" />
           <Property Name="pdfHeader" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="createdByUserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DigiboardModel.FK_AnnouncementsPDF_Users" FromRole="AnnouncementsPDF" ToRole="User" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -141,6 +230,8 @@
           <Property Name="eventLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="eventDateTime" Type="DateTime" Precision="3" />
+          <Property Name="createdByUserID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="DigiboardModel.FK_Events_Users" FromRole="Event" ToRole="User" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -163,8 +254,48 @@
           <Property Name="roleID" Type="Int32" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="isNewUser" Type="Boolean" />
+          <NavigationProperty Name="AnnouncementsNotes" Relationship="DigiboardModel.FK_AnnouncementsNote_Users" FromRole="User" ToRole="AnnouncementsNote" />
+          <NavigationProperty Name="AnnouncementsPDFs" Relationship="DigiboardModel.FK_AnnouncementsPDF_Users" FromRole="User" ToRole="AnnouncementsPDF" />
+          <NavigationProperty Name="Events" Relationship="DigiboardModel.FK_Events_Users" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="UserRole" Relationship="DigiboardModel.FK__Users__roleID__4AB81AF0" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserLogHistories" Relationship="DigiboardModel.FK_UserLogHistory_Users" FromRole="User" ToRole="UserLogHistory" />
         </EntityType>
+        <Association Name="FK_AnnouncementsNote_Users">
+          <End Type="DigiboardModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DigiboardModel.AnnouncementsNote" Role="AnnouncementsNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AnnouncementsNote">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnnouncementsPDF_Users">
+          <End Type="DigiboardModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DigiboardModel.AnnouncementsPDF" Role="AnnouncementsPDF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="AnnouncementsPDF">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Users">
+          <End Type="DigiboardModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DigiboardModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="createdByUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Users__roleID__4AB81AF0">
           <End Type="DigiboardModel.UserRole" Role="UserRole" Multiplicity="0..1" />
           <End Type="DigiboardModel.User" Role="User" Multiplicity="*" />
@@ -177,37 +308,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AnnouncementsNote">
+        <EntityType Name="UserLogHistory">
           <Key>
-            <PropertyRef Name="noteID" />
+            <PropertyRef Name="logID" />
           </Key>
-          <Property Name="noteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="announcementHeader" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="announcementBody" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createdBy" Type="Int32" />
-          <Property Name="isDeleted" Type="Boolean" />
-          <Property Name="displayStartDate" Type="DateTime" Precision="0" />
-          <Property Name="displayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="logID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="loginTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="DigiboardModel.FK_UserLogHistory_Users" FromRole="UserLogHistory" ToRole="User" />
         </EntityType>
-      </Schema>
+        <Association Name="FK_UserLogHistory_Users">
+          <End Type="DigiboardModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="DigiboardModel.UserLogHistory" Role="UserLogHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserLogHistory">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DigiboardModelStoreContainer" CdmEntityContainer="DigiboardEntities">
-          <EntitySetMapping Name="UserLogHistories">
-            <EntityTypeMapping TypeName="DigiboardModel.UserLogHistory">
-              <MappingFragment StoreEntitySet="UserLogHistory">
-                <ScalarProperty Name="loginTime" ColumnName="loginTime" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="logID" ColumnName="logID" />
+          <EntitySetMapping Name="AnnouncementsNotes">
+            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
+              <MappingFragment StoreEntitySet="AnnouncementsNote">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
+                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
+                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
+                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
+                <ScalarProperty Name="noteID" ColumnName="noteID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AnnouncementsPDFs">
             <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsPDF">
               <MappingFragment StoreEntitySet="AnnouncementsPDF">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
                 <ScalarProperty Name="pdfHeader" ColumnName="pdfHeader" />
                 <ScalarProperty Name="pdfOrder" ColumnName="pdfOrder" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
@@ -221,6 +366,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="DigiboardModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
                 <ScalarProperty Name="eventDateTime" ColumnName="eventDateTime" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="eventLocation" ColumnName="eventLocation" />
@@ -253,16 +399,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AnnouncementsNotes">
-            <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
-              <MappingFragment StoreEntitySet="AnnouncementsNote">
-                <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
-                <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="announcementBody" ColumnName="announcementBody" />
-                <ScalarProperty Name="announcementHeader" ColumnName="announcementHeader" />
-                <ScalarProperty Name="noteID" ColumnName="noteID" />
+          <EntitySetMapping Name="UserLogHistories">
+            <EntityTypeMapping TypeName="DigiboardModel.UserLogHistory">
+              <MappingFragment StoreEntitySet="UserLogHistory">
+                <ScalarProperty Name="loginTime" ColumnName="loginTime" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="logID" ColumnName="logID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

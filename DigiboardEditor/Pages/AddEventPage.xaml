@@ -6,10 +6,12 @@
       xmlns:local="clr-namespace:DigiboardEditor.Pages"
       xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="900" d:DesignWidth="1600"
       Title="AddEventPage">
     <Grid Background="#FF22328C">
         <StackPanel Orientation="Vertical" Width="600" VerticalAlignment="Center" >
+            <telerik:RadGlyph Glyph="&#xe108;" FontSize="150" Foreground="White"></telerik:RadGlyph>
+            <TextBlock HorizontalAlignment="Center" Text="Add Event" Foreground="White"  FontSize="25" FontFamily="Verdana" FontWeight="Bold" Margin="0,0,0,50"></TextBlock>
 
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Event Name:</TextBlock>
             <telerik:RadWatermarkTextBox Name="tbTitle" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding EventTitle}">

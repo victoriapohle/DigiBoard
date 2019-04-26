@@ -25,7 +25,7 @@ namespace DigiboardEditor.Pages
     /// <summary>
     /// Interaction logic for AnnouncementsViewPage.xaml
     /// </summary>
-    public partial class ManageAnnouncementsPage : System.Windows.Controls.Page
+    public partial class ManageAnnouncementsPage : System.Windows.Controls.Page, INotifyPropertyChanged
     {
         public ManageAnnouncementsPage()
         {
@@ -95,25 +95,7 @@ namespace DigiboardEditor.Pages
             NotesCollection = NoteAnnouncementsRepository.Instance.Service.GetAll();
 
         }
-        #region INotifyPropertyChanged Members
-
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        //Create OnPropertyChanged method to raise event
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-
-            if (PropertyChanged != null)
-
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
+   
 
         private void BtnDeleteAnnouncement_Click(object sender, RoutedEventArgs e)
         {
@@ -137,13 +119,13 @@ namespace DigiboardEditor.Pages
         }
         public void DeleteNote(AnnouncementsNote note)
         {
-            var thingy = NoteAnnouncementsRepository.Instance.Service.Delete(note.noteID);
+            NoteAnnouncementsRepository.Instance.Service.Delete(note.noteID);
             NotesCollection.Remove(note);
         }
         public void DeletePDF(AnnouncementsPDF note)
         {
 
-            var thingy = PDFAnnouncementsRepository.Instance.Service.Delete(note.pdfID);
+            PDFAnnouncementsRepository.Instance.Service.Delete(note.pdfID);
             PDFCollection.Remove(note);
         }
 
@@ -187,5 +169,46 @@ namespace DigiboardEditor.Pages
 
             }
         }
+
+        private void LbNotes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+
+            {
+                if (SelectedNote == null) return;
+                RadWindow.Confirm("Are you sure you want to delete " + SelectedNote.announcementHeader + "?", this.OnClosedNote);
+
+            }
+        }
+
+        private void LbPDF_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+
+            {
+                if (SelectedPDF == null) return;
+                RadWindow.Confirm("Are you sure you want to delete " + SelectedPDF.pdfHeader + "?", this.OnClosedPDF);
+
+            }
+        }
+        #region INotifyPropertyChanged Members
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        //Create OnPropertyChanged method to raise event
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (PropertyChanged != null)
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

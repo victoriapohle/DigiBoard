@@ -38,22 +38,26 @@
 
         <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">-->
 
-            <qsf1:HeaderedContentControl Header="Calendar" Foreground="White" FontSize="18" Grid.Column="0">
-                <telerik:RadCalendar x:Name="calendar" telerik:StyleManager.Theme="Material"
+        <qsf1:HeaderedContentControl Header="Calendar" Foreground="White" FontSize="18" Grid.Column="0">
+            <telerik:RadCalendar x:Name="calendar" telerik:StyleManager.Theme="Material"
 				Grid.Row="1" Width="700" Height="700" SelectedDate="{Binding SelectedDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
 				SelectionMode="Single" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
 				IsTodayHighlighted="True" ViewsHeaderVisibility="Collapsed" 
 				Culture="en-US" SelectionChanged="Calendar_SelectionChanged" 
 				 />
-            </qsf1:HeaderedContentControl>
+        </qsf1:HeaderedContentControl>
         <qsf1:HeaderedContentControl Name="EventsHeader" Grid.Column="1" Header="Events" Margin="-1 0 0 0" Foreground="White" FontSize="18" >
-                <Grid>
-                    <telerik:RadListBox Name="lbEvents" ItemsSource="{Binding ElementName=ManageEvents, Path=FilteredEventsCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                             telerik:StyleManager.Theme="Material" HorizontalAlignment="Stretch"  Background="Transparent" 
-                                        Foreground="White"  Width="700" SelectionChanged="LbEvents_SelectionChanged"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="32*"/>
+                    <ColumnDefinition Width="369*"/>
+                </Grid.ColumnDefinitions>
+                <telerik:RadListBox Name="lbEvents" ItemsSource="{Binding FilteredEventsCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             telerik:StyleManager.Theme="Material" HorizontalAlignment="Stretch"  Background="Transparent" SelectedItem="{Binding SelectedEvent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Foreground="White"  Width="700" SelectionChanged="LbEvents_SelectionChanged" KeyDown="LbEvents_KeyDown" Grid.ColumnSpan="2" Margin="0,0,-299,0"
 >
-                        <telerik:RadListBox.ItemTemplate>
-                            <DataTemplate>
+                    <telerik:RadListBox.ItemTemplate>
+                        <DataTemplate>
                             <StackPanel Name="spEvents"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="3,3,3,1"  Width="650" HorizontalAlignment="Left" 
                                        >
                                 <StackPanel.Background>
@@ -63,28 +67,25 @@
                                 <TextBlock Text="{Binding eventLocation}"  FontSize="15" HorizontalAlignment="Left" Foreground="LightGray" Margin="2,0,5,5"/>
                                 <TextBlock Text="{Binding eventDescription}"  FontSize="15" HorizontalAlignment="Left" Foreground="White"  Margin="5,0,0,5"/>
                                 <TextBlock Text="{Binding eventDateTime}"></TextBlock>
-                                <telerik:RadButton Name="btnDelete" Visibility="Visible" HorizontalAlignment="Right" Width="30" telerik:StyleManager.Theme="Material" Margin="1" Click="BtnDelete_Click">
-                                    
-                                </telerik:RadButton>
-                                    
-                                
 
-                                </StackPanel>
 
-                            </DataTemplate>
-                        </telerik:RadListBox.ItemTemplate>
-                        <telerik:RadListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel IsItemsHost="True" Orientation="Vertical"  />
-                            </ItemsPanelTemplate>
-                        </telerik:RadListBox.ItemsPanel>
-                    </telerik:RadListBox>
 
-                    <TextBlock x:Name="EmptyContent" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="There are no upcoming events for this date." FontStyle="Italic" 
-                          Foreground="LightGray" />
+                            </StackPanel>
 
-                </Grid>
-            </qsf1:HeaderedContentControl>
+                        </DataTemplate>
+                    </telerik:RadListBox.ItemTemplate>
+                    <telerik:RadListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" Orientation="Vertical"  />
+                        </ItemsPanelTemplate>
+                    </telerik:RadListBox.ItemsPanel>
+                </telerik:RadListBox>
+
+                <TextBlock x:Name="EmptyContent" Margin="32,20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="There are no upcoming events for this date." FontStyle="Italic" 
+                          Foreground="LightGray" Grid.ColumnSpan="2" />
+
+            </Grid>
+        </qsf1:HeaderedContentControl>
 
         <!--</StackPanel>-->
     </Grid>

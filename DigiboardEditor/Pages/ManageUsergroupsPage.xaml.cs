@@ -100,5 +100,17 @@ namespace DigiboardEditor.Pages
             UserRespository.Instance.Service.DeleteUser(user.UserID);
             UsersCollection.Remove(user);
         }
+
+        private void LbUsers_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+
+            {
+                User user = (User)lbUsers.SelectedItem;
+                DeleteUser(user);
+                PopulateUsersCollection();
+
+            }
+        }
     }
 }

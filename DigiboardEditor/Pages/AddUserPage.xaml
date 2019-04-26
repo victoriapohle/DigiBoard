@@ -10,8 +10,10 @@
       Title="AddUserPage" telerik:StyleManager.Theme="Material">
 
 
-    <Grid Background="#FF22328C">
-        <StackPanel Orientation="Vertical" Width="400" VerticalAlignment="Center" >
+    <Grid Background="#FF22328C" >
+        <StackPanel Orientation="Vertical"  Width="600" VerticalAlignment="Center" >
+            <telerik:RadGlyph Glyph="&#xe801;" FontSize="150" Foreground="White"></telerik:RadGlyph>
+            <TextBlock HorizontalAlignment="Center" Text="Add User" Foreground="White"  FontSize="25" FontFamily="Verdana" FontWeight="Bold" Margin="0,0,0,50"></TextBlock>
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Full Name: </TextBlock>
             <telerik:RadWatermarkTextBox Name="tbName" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" 
                                          Text="{Binding FullName}">

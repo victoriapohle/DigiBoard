@@ -20,5 +20,8 @@ namespace DigiboardEditor
         public string eventLocation { get; set; }
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<System.DateTime> eventDateTime { get; set; }
+        public Nullable<int> createdByUserID { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

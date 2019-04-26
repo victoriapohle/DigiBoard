@@ -2,20 +2,17 @@
 using DigiboardEditor.Pages;
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
 using System.Windows;
-using System.Windows.Threading;
-using Telerik.Windows;
 using Telerik.Windows.Controls;
 
+/// <summary>
+/// 4/25/2019 - Victoria Pohle
+/// This window functions as the primary application window with a navigation pane on the left for the user to navigate through the pages of the application.
+/// The max and min versions of the dropdown buttons in the navigation are for when the naviation pane is collapsed or opened. The navigation does not have functionality
+/// for dropdowns in the selected buttons but I used them as the content so that I could extend it's functionality to a dropdown under each navigation item.
+/// </summary>
+/// 
 //Icon made by https://www.flaticon.com/authors/popcorns-arts from www.flaticon.com
 
 
@@ -30,6 +27,7 @@ namespace DigiboardEditor
             //State = new OAuthState();
             DataContext = this;
             StartupPage page = new StartupPage();
+ 
             frmMain.Navigate(page);
             this.Height = (System.Windows.SystemParameters.PrimaryScreenHeight);
             this.Width = (System.Windows.SystemParameters.PrimaryScreenWidth);
@@ -47,25 +45,7 @@ namespace DigiboardEditor
                 OnPropertyChanged();
             }
         }
-        #region INotifyPropertyChanged Members
 
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        //Create OnPropertyChanged method to raise event
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-
-            if (PropertyChanged != null)
-
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
 
         private void BtnAnnouncements_Click(object sender, RoutedEventArgs e)
@@ -126,59 +106,19 @@ namespace DigiboardEditor
 
         private void BtnUsername_Click(object sender, RoutedEventArgs e)
         {
+            if (navigationView.IsPaneOpen == true)
+            {
+                btnUserMax.IsOpen = true;
 
-        }
-        private void FrmMain_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
+            }
+            else
+            {
+                btnUserMin.IsOpen = true;
 
-        }
-
-        private void RmiPDF_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            AddNoteAnnouncementPage page = new AddNoteAnnouncementPage();
-            frmMain.Navigate(page);
-
-        }
-
-        private void RmiNote_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            AddPDFAnnouncementPage page = new AddPDFAnnouncementPage();
-            frmMain.Navigate(page);
+            }
 
         }
 
-        private void RmiView_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            ManageAnnouncementsPage page = new ManageAnnouncementsPage();
-            frmMain.Navigate(page);
-        }
-
-        private void RmiAddUser_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            AddUserPage page = new AddUserPage();
-            frmMain.Navigate(page);
-        }
-
-        private void RmiViewUsergroups_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            ManageUsergroupsPage page = new ManageUsergroupsPage();
-            frmMain.Navigate(page);
-        }
-
-        private void RmiAddEvent_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            AddEventPage page = new AddEventPage();
-            frmMain.Navigate(page);
-
-        }
-
-        private void RmiManageEvents_Click(object sender, Telerik.Windows.RadRoutedEventArgs e)
-        {
-            ManageEventsPage page = new ManageEventsPage();
-            frmMain.Navigate(page);
-        }
-
-        //TODO: Fix selection bug by unselecting everything else when button is clicked
         private void RadListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if((sender as RadListBox).SelectedItem == null) return;
@@ -220,6 +160,16 @@ namespace DigiboardEditor
                     ManageUsergroupsPage manageUsergroupsPage = new ManageUsergroupsPage();
                     frmMain.Navigate(manageUsergroupsPage);
                     break;
+                    
+                case "User Log":
+                    UserLogPage userLogPage = new UserLogPage();
+                    frmMain.Navigate(userLogPage);
+                    break;
+                case "Sign out":
+                    System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                    System.Windows.Application.Current.Shutdown();
+                  
+                    break;
                 default:
                     Console.WriteLine("Default case");
                     break;
@@ -237,9 +187,32 @@ namespace DigiboardEditor
             box.SelectedItem = null;
         }
 
-        private void RadListBox_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            if (globals.CurrentUser != null)
+            {
+                tbUserName.Text = globals.CurrentUser.fullName;
+
+            }
         }
+        #region INotifyPropertyChanged Members
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+
+        //Create OnPropertyChanged method to raise event
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (PropertyChanged != null)
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

@@ -172,6 +172,7 @@ namespace DigiboardEditor.Pages
             newpdf.isDeleted = false;
             newpdf.displayStartDate = startDate;
             newpdf.displayEndDate = endDate;
+            newpdf.createdByUserID = globals.CurrentUser.UserID;
             PDFAnnouncementsRepository.Instance.Service.Add(newpdf);
             InitializePage();
         }

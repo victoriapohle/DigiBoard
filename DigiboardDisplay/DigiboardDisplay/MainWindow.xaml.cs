@@ -157,7 +157,7 @@ namespace DigiboardDisplay
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            PopulatePDFCollection();
+            //PopulatePDFCollection();
             PopulateNoteCollection();
             PopulateEventsCollection();
             tbDate.Text = DateTime.Now.ToString("dddd, dd MMMM yyyy h:mm:ss tt");

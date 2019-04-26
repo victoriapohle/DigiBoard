@@ -12,16 +12,18 @@
 
     <Grid Background="#FF22328C">
         <StackPanel Orientation="Vertical" Margin="40,0">
+
             <telerik:RadListBox Name="lbUsers" ItemsSource="{Binding UsersCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                              telerik:StyleManager.Theme="Material" telerik:RadDragAndDropManager.AllowDrag="True" Background="Transparent" 
-                                telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold">
+                                telerik:DragDropManager.AllowCapturedDrag="True" telerik:DragDropManager.TouchDragTrigger="TapAndHold" 
+                                    KeyDown="LbUsers_KeyDown">
                 <telerik:RadListBox.DragDropBehavior>
                     <telerik:ListBoxDragDropBehavior></telerik:ListBoxDragDropBehavior>
                 </telerik:RadListBox.DragDropBehavior>
                 <telerik:RadListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Name="spUser" Width="180"  Visibility="{Binding spOpacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                            <telerik:RadGlyph Glyph="&#xe801;"  FontSize="150"/>
+                            <telerik:RadGlyph Glyph="&#xe801;"  FontSize="150" Foreground="White"/>
                             <TextBlock Text="{Binding userName}"  FontSize="18" HorizontalAlignment="Center" />
 
                         </StackPanel>
@@ -34,7 +36,7 @@
                     </ItemsPanelTemplate>
                 </telerik:RadListBox.ItemsPanel>
             </telerik:RadListBox>
-            <Button Name="btnDeleteUser" Click="BtnDeleteUser_Click" telerik:StyleManager.Theme="Material">Delete User</Button>
+            <Button Name="btnDeleteUser" Click="BtnDeleteUser_Click" telerik:StyleManager.Theme="Material" Visibility="Collapsed">Delete User</Button>
 
         </StackPanel>
     </Grid>

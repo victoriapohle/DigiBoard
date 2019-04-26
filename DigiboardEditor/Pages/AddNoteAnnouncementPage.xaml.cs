@@ -45,6 +45,8 @@ namespace DigiboardEditor.Pages
             newNote.isDeleted = false;
             newNote.displayStartDate = startDate;
             newNote.displayEndDate = endDate;
+            newNote.createdByUserID = globals.CurrentUser.UserID;
+
             NoteAnnouncementsRepository.Instance.Service.Add(newNote);
             InitializePage();
         }

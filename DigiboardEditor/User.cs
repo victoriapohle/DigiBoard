@@ -14,6 +14,15 @@ namespace DigiboardEditor
     
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            this.AnnouncementsNotes = new HashSet<AnnouncementsNote>();
+            this.AnnouncementsPDFs = new HashSet<AnnouncementsPDF>();
+            this.Events = new HashSet<Event>();
+            this.UserLogHistories = new HashSet<UserLogHistory>();
+        }
+    
         public int UserID { get; set; }
         public string fullName { get; set; }
         public string userName { get; set; }
@@ -23,6 +32,14 @@ namespace DigiboardEditor
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<bool> isNewUser { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AnnouncementsNote> AnnouncementsNotes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AnnouncementsPDF> AnnouncementsPDFs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Event> Events { get; set; }
         public virtual UserRole UserRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserLogHistory> UserLogHistories { get; set; }
     }
 }

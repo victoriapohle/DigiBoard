@@ -124,6 +124,7 @@
     <Compile Include="Event.cs">
       <DependentUpon>DigiboardDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="globals.cs" />
     <Compile Include="Pages\AddEventPage.xaml.cs">
       <DependentUpon>AddEventPage.xaml</DependentUpon>
     </Compile>
@@ -148,9 +149,13 @@
     <Compile Include="Pages\TimerPage.xaml.cs">
       <DependentUpon>TimerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserLogPage.xaml.cs">
+      <DependentUpon>UserLogPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\EventsRepository.cs" />
     <Compile Include="Repositories\NoteAnnouncementsRepository.cs" />
     <Compile Include="Repositories\PDFAnnouncementsRepository.cs" />
+    <Compile Include="Repositories\UserLogRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UserRoleRepository.cs" />
     <Compile Include="User.cs">
@@ -214,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ManageUsergroupsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\UserLogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -105,6 +105,7 @@ namespace DigiboardEditor.Pages
             newEvent.eventLocation = EventLocation;
             newEvent.eventDateTime = EventDateTime;
             newEvent.isDeleted = false;
+            newEvent.createdByUserID = globals.CurrentUser.UserID;
             EventsRepository.Instance.Service.Add(newEvent);
             InitializePage();
         }

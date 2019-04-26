@@ -16,7 +16,8 @@ namespace DigiboardEditor
     {
         public int logID { get; set; }
         public Nullable<int> userID { get; set; }
-        public string userName { get; set; }
         public Nullable<System.DateTime> loginTime { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

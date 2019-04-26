@@ -21,5 +21,8 @@ namespace DigiboardEditor
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<System.DateTime> displayStartDate { get; set; }
         public Nullable<System.DateTime> displayEndDate { get; set; }
+        public Nullable<int> createdByUserID { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }
