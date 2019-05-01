@@ -149,8 +149,11 @@ namespace DigiboardEditor
                     frmMain.Navigate(manageEventsPage);
                     break;
                 case "Start Timer":
+                    AddTimerPage addTimerPage = new AddTimerPage();
+                    frmMain.Navigate(addTimerPage);
                     break;
                 case "Manage Timer":
+
                     break;
                 case "Add User":
                     AddUserPage addUserPage = new AddUserPage();

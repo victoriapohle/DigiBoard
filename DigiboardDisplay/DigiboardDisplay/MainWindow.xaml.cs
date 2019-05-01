@@ -22,6 +22,7 @@ using Telerik.Windows.Documents.Fixed;
 using Telerik.Windows.Controls.FixedDocumentViewersUI;
 using Telerik.Windows.Documents.Fixed.UI;
 using System.Windows.Threading;
+using DigiboardEditor;
 
 namespace DigiboardDisplay
 {
@@ -133,25 +134,30 @@ namespace DigiboardDisplay
             PDFTimer.Start();
             dispatcherTimer.Start();
 
-            pdfViewer.Width = 600;
-            pdfViewer.ScaleMode = ScaleMode.FitToPage;
-            //carouselPDF.ItemsSource = PDFCollection;
 
+
+            Timer activeTimer = TimerRepository.Instance.Service.GetAll().Where(x => x.isDeleted == false && x.StopTime > DateTime.Now).FirstOrDefault();
+            if (activeTimer != null)
+            {
+                Layer.Visibility = Visibility.Visible;
+
+            }
         }
         public int CurrPDFIndex { get; set; }
-        
+
         private void PDFTimer_Tick(object sender, EventArgs e)
         {
-            if (CurrPDFIndex < PDFCollection.Count)
+            if (CurrPDFIndex >= PDFCollection.Count-1)
             {
-                MemoryStream ms = new MemoryStream(PDFCollection[CurrPDFIndex].pdfBody);
-                pdfViewer.DocumentSource = new PdfDocumentSource(ms);
-
-            }
-            else {
                 CurrPDFIndex = 0;
             }
-            CurrPDFIndex++;
+            else
+            {
+                CurrPDFIndex++;
+            }
+            MemoryStream ms = new MemoryStream(PDFCollection[CurrPDFIndex].pdfBody);
+            pdfViewer.DocumentSource = new PdfDocumentSource(ms);
+
 
         }
 
@@ -164,6 +170,27 @@ namespace DigiboardDisplay
             lbNotes.ItemsSource = NotesCollection;
             lbEvents.ItemsSource = FilteredEventCollection;
 
+            Timer activeTimer = TimerRepository.Instance.Service.GetAll().Where(x => x.isDeleted == false && x.StopTime > DateTime.Now).FirstOrDefault();
+            if (activeTimer != null)
+            {
+                Layer.Visibility = Visibility.Visible;
+                tbTimer.Visibility = Visibility.Visible;
+
+
+                TimeSpan duration = activeTimer.StopTime - DateTime.Now;
+                if(duration.Hours == 0)
+                {
+                    tbTimer.Text =  duration.Minutes.ToString() + ":" + duration.Seconds.ToString();
+
+                }
+                else
+                {
+                    tbTimer.Text = duration.Hours.ToString() + ":" + duration.Minutes.ToString() + ":" + duration.Seconds.ToString();
+
+                }
+
+
+            }
         }
         private ObservableCollection<AnnouncementsPDF> _pdfCollection;
 
@@ -235,6 +262,41 @@ namespace DigiboardDisplay
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+
+
+        //Create OnPropertyChanged method to raise event
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+
+            if (PropertyChanged != null)
+
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Refresh();
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
+
+
+
+        }
+
+        private void PdfViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
+
+        }
+        #region Weather
         public class Coord
         {
             public double lon { get; set; }
@@ -293,39 +355,16 @@ namespace DigiboardDisplay
             public string name { get; set; }
             public int cod { get; set; }
         }
-
-        //Create OnPropertyChanged method to raise event
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-
-            if (PropertyChanged != null)
-
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         #endregion
 
-        private void PdfViewer_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            pdfViewer.ScaleMode = ScaleMode.FitToPage;
-
-
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            pdfViewer.ScaleMode = ScaleMode.FitToPage;
-
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void PdfViewer_DocumentChanged(object sender, DocumentChangedEventArgs e)
         {
             mainWindow.Refresh();
-
+            pdfViewer.ScaleMode = ScaleMode.FitToPage;
 
         }
     }
+
 
 
 }

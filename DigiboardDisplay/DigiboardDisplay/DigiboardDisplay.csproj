@@ -118,6 +118,10 @@
     <Compile Include="Repositories\EventsRepository.cs" />
     <Compile Include="Repositories\NoteAnnouncementRepository.cs" />
     <Compile Include="Repositories\PDFAnnouncementsRepository.cs" />
+    <Compile Include="Repositories\TimerRepository.cs" />
+    <Compile Include="Timer.cs">
+      <DependentUpon>DigiboardDataModel.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

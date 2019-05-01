@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsNote" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DigiboardModel.AnnouncementsPDF" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="DigiboardModel.Event" Width="1.5" PointX="5.375" PointY="0.875" />
+        <EntityTypeShape EntityType="DigiboardModel.Timer" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

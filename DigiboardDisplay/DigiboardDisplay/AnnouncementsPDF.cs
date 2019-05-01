@@ -21,5 +21,6 @@ namespace DigiboardDisplay
         public Nullable<bool> isDeleted { get; set; }
         public Nullable<int> pdfOrder { get; set; }
         public string pdfHeader { get; set; }
+        public Nullable<int> createdByUserID { get; set; }
     }
 }

@@ -43,6 +43,15 @@
           <Property Name="eventDateTime" Type="datetime" />
           <Property Name="createdByUserID" Type="int" />
         </EntityType>
+        <EntityType Name="Timers">
+          <Key>
+            <PropertyRef Name="TimerID" />
+          </Key>
+          <Property Name="TimerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="StopTime" Type="datetime" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="UserLogHistory">
           <Key>
             <PropertyRef Name="logID" />
@@ -136,6 +145,7 @@
           <EntitySet Name="AnnouncementsNote" EntityType="Self.AnnouncementsNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnnouncementsPDF" EntityType="Self.AnnouncementsPDF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timers" EntityType="Self.Timers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLogHistory" EntityType="Self.UserLogHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -191,6 +201,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserLogHistory" EntitySet="UserLogHistories" />
           </AssociationSet>
+          <EntitySet Name="Timers" EntityType="DigiboardModel.Timer" />
         </EntityContainer>
         <EntityType Name="AnnouncementsNote">
           <Key>
@@ -329,6 +340,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Timer">
+          <Key>
+            <PropertyRef Name="TimerID" />
+          </Key>
+          <Property Name="TimerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StopTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -405,6 +425,16 @@
                 <ScalarProperty Name="loginTime" ColumnName="loginTime" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
                 <ScalarProperty Name="logID" ColumnName="logID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timers">
+            <EntityTypeMapping TypeName="DigiboardModel.Timer">
+              <MappingFragment StoreEntitySet="Timers">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="TimerID" ColumnName="TimerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

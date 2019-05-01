@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
       xmlns:qsf1="http://schemas.microsoft.com/netfx/2009/xaml/presentation" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="400" Name="ManageEvents" Background="#FF22328C" >
+		mc:Ignorable="d"   d:DesignHeight="900" d:DesignWidth="1600" Name="ManageEvents" Background="#FF22328C" >
 
     <Page.Resources>
 
@@ -35,6 +35,10 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
 
         <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">-->
 
@@ -86,6 +90,7 @@
 
             </Grid>
         </qsf1:HeaderedContentControl>
+        <Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="LightGray" FontStyle="Italic">To delete an event, click on event to select it and then press delete on your keyboard.</Label>
 
         <!--</StackPanel>-->
     </Grid>

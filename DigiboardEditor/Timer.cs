@@ -7,19 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DigiboardDisplay
+namespace DigiboardEditor
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class Timer
     {
-        public int eventID { get; set; }
-        public string eventTitle { get; set; }
-        public string eventDescription { get; set; }
-        public string eventLocation { get; set; }
-        public Nullable<bool> isDeleted { get; set; }
-        public Nullable<System.DateTime> eventDateTime { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+        public int TimerID { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime StopTime { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

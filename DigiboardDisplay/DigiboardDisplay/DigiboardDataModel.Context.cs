@@ -28,5 +28,6 @@ namespace DigiboardDisplay
         public virtual DbSet<AnnouncementsNote> AnnouncementsNotes { get; set; }
         public virtual DbSet<AnnouncementsPDF> AnnouncementsPDFs { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<Timer> Timers { get; set; }
     }
 }

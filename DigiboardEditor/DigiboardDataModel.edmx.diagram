@@ -16,6 +16,7 @@
         <AssociationConnector Association="DigiboardModel.FK__Users__roleID__4AB81AF0" />
         <EntityTypeShape EntityType="DigiboardModel.UserLogHistory" Width="1.5" PointX="5.375" PointY="4.625" />
         <AssociationConnector Association="DigiboardModel.FK_UserLogHistory_Users" />
+        <EntityTypeShape EntityType="DigiboardModel.Timer" Width="1.5" PointX="2.875" PointY="3.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

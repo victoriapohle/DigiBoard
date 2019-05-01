@@ -1,0 +1,43 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DigiboardEditor"
+      xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+      xmlns:MaterialControls="clr-namespace:Telerik.Windows.Controls.MaterialControls;assembly=Telerik.Windows.Controls"
+    xmlns:telerik1="http://schemas.telerik.com/2008/xaml/presentation" x:Class="DigiboardEditor.AddTimerPage"
+      mc:Ignorable="d" 
+        d:DesignHeight="900" d:DesignWidth="1600">
+
+    <Grid Background="#FF22328C">
+        <StackPanel Orientation="Vertical" Width="600" VerticalAlignment="Center" >
+            <telerik:RadGlyph Glyph="&#xe107;" FontSize="150" Foreground="White"></telerik:RadGlyph>
+            <TextBlock HorizontalAlignment="Center" Text="Start Timer" Foreground="White"  FontSize="25" FontFamily="Verdana" FontWeight="Bold" Margin="0,0,0,50"></TextBlock>
+
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Foreground="White"> Timer Length:</TextBlock>
+
+            <StackPanel Orientation="Horizontal">
+                <telerik:RadWatermarkTextBox Name="tbTime" telerik:StyleManager.Theme="Material" Margin="0,0,0,10" Foreground="LightGray" Text="{Binding TimerAmount}" Width="535"
+                                              VerticalAlignment="Center" >
+                    <telerik:RadWatermarkTextBox.Background>
+                        <SolidColorBrush Color="LightGray" Opacity="0.15"/>
+                    </telerik:RadWatermarkTextBox.Background>
+                </telerik:RadWatermarkTextBox>
+                <TextBlock HorizontalAlignment="Left" FontSize="15" Foreground="White" Margin="5,0,0,0" VerticalAlignment="Center" >Minutes</TextBlock>
+
+            </StackPanel>
+
+
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
+                <telerik:RadButton Name="btnStartTimer" Width="100" Margin="0,0,5,0" Click="BtnStartTimer_Click"
+                                   telerik:StyleManager.Theme="Material">Start</telerik:RadButton>
+                <telerik:RadButton Name="btnCancel" Width="100" Click="BtnCancel_Click"
+                                   telerik:StyleManager.Theme="Material">Cancel</telerik:RadButton>
+
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -12,15 +12,11 @@ namespace DigiboardDisplay
     using System;
     using System.Collections.Generic;
     
-    public partial class AnnouncementsNote
+    public partial class Timer
     {
-        public int noteID { get; set; }
-        public string announcementHeader { get; set; }
-        public string announcementBody { get; set; }
-        public Nullable<int> createdBy { get; set; }
-        public Nullable<bool> isDeleted { get; set; }
-        public Nullable<System.DateTime> displayStartDate { get; set; }
-        public Nullable<System.DateTime> displayEndDate { get; set; }
-        public Nullable<int> createdByUserID { get; set; }
+        public int TimerID { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime StopTime { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

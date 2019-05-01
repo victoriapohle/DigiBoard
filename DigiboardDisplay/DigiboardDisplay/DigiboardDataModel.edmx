@@ -16,6 +16,7 @@
           <Property Name="isDeleted" Type="bit" />
           <Property Name="displayStartDate" Type="date" />
           <Property Name="displayEndDate" Type="date" />
+          <Property Name="createdByUserID" Type="int" />
         </EntityType>
         <EntityType Name="AnnouncementsPDF">
           <Key>
@@ -28,6 +29,7 @@
           <Property Name="isDeleted" Type="bit" />
           <Property Name="pdfOrder" Type="int" />
           <Property Name="pdfHeader" Type="varchar" MaxLength="150" />
+          <Property Name="createdByUserID" Type="int" />
         </EntityType>
         <EntityType Name="Events">
           <Key>
@@ -39,11 +41,22 @@
           <Property Name="eventLocation" Type="varchar" MaxLength="50" />
           <Property Name="isDeleted" Type="bit" />
           <Property Name="eventDateTime" Type="datetime" />
+          <Property Name="createdByUserID" Type="int" />
+        </EntityType>
+        <EntityType Name="Timers">
+          <Key>
+            <PropertyRef Name="TimerID" />
+          </Key>
+          <Property Name="TimerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="StopTime" Type="datetime" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DigiboardModelStoreContainer">
           <EntitySet Name="AnnouncementsNote" EntityType="Self.AnnouncementsNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AnnouncementsPDF" EntityType="Self.AnnouncementsPDF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Timers" EntityType="Self.Timers" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -53,6 +66,7 @@
           <EntitySet Name="AnnouncementsNotes" EntityType="DigiboardModel.AnnouncementsNote" />
           <EntitySet Name="AnnouncementsPDFs" EntityType="DigiboardModel.AnnouncementsPDF" />
           <EntitySet Name="Events" EntityType="DigiboardModel.Event" />
+          <EntitySet Name="Timers" EntityType="DigiboardModel.Timer" />
         </EntityContainer>
         <EntityType Name="AnnouncementsNote">
           <Key>
@@ -65,6 +79,7 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="displayStartDate" Type="DateTime" Precision="0" />
           <Property Name="displayEndDate" Type="DateTime" Precision="0" />
+          <Property Name="createdByUserID" Type="Int32" />
         </EntityType>
         <EntityType Name="AnnouncementsPDF">
           <Key>
@@ -77,6 +92,7 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="pdfOrder" Type="Int32" />
           <Property Name="pdfHeader" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="createdByUserID" Type="Int32" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -88,6 +104,16 @@
           <Property Name="eventLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="eventDateTime" Type="DateTime" Precision="3" />
+          <Property Name="createdByUserID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Timer">
+          <Key>
+            <PropertyRef Name="TimerID" />
+          </Key>
+          <Property Name="TimerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StopTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -98,6 +124,7 @@
           <EntitySetMapping Name="AnnouncementsNotes">
             <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsNote">
               <MappingFragment StoreEntitySet="AnnouncementsNote">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
                 <ScalarProperty Name="displayEndDate" ColumnName="displayEndDate" />
                 <ScalarProperty Name="displayStartDate" ColumnName="displayStartDate" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
@@ -111,6 +138,7 @@
           <EntitySetMapping Name="AnnouncementsPDFs">
             <EntityTypeMapping TypeName="DigiboardModel.AnnouncementsPDF">
               <MappingFragment StoreEntitySet="AnnouncementsPDF">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
                 <ScalarProperty Name="pdfHeader" ColumnName="pdfHeader" />
                 <ScalarProperty Name="pdfOrder" ColumnName="pdfOrder" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
@@ -124,12 +152,23 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="DigiboardModel.Event">
               <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="createdByUserID" ColumnName="createdByUserID" />
                 <ScalarProperty Name="eventDateTime" ColumnName="eventDateTime" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="eventLocation" ColumnName="eventLocation" />
                 <ScalarProperty Name="eventDescription" ColumnName="eventDescription" />
                 <ScalarProperty Name="eventTitle" ColumnName="eventTitle" />
                 <ScalarProperty Name="eventID" ColumnName="eventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Timers">
+            <EntityTypeMapping TypeName="DigiboardModel.Timer">
+              <MappingFragment StoreEntitySet="Timers">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="TimerID" ColumnName="TimerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
